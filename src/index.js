@@ -1,13 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom'
 import './index.css';
-import App from './App';
+import App from './components/App/App';
 import * as serviceWorker from './serviceWorker';
+import { BudgetMeProvider } from './context/BudgetMeContext';
+
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <BrowserRouter>
+    <React.StrictMode>
+      <BudgetMeProvider>
+        <App />
+      </BudgetMeProvider>
+    </React.StrictMode>
+  </BrowserRouter>
+  ,
   document.getElementById('root')
 );
 

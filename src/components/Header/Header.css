@@ -1,0 +1,17 @@
+.header{
+    height: 6vh;
+}
+
+.headerMenu{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    left: 0;
+    z-index: 0;
+}
+
+h2{
+    text-align: center;
+    margin: 0 auto;
+    font-size: 24pt;
+}
