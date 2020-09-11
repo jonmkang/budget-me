@@ -1,83 +1,53 @@
 import React, { Component } from 'react';
-import { Bar, Line, Pie, Polar } from 'react-chartjs-2';
+import { Pie } from 'react-chartjs-2';
 import Category from '../../components/Category/Category'
 import './Chart.css'
+import BudgetMeContext from '../../context/BudgetMeContext';
+import AddItem from '../AddItem/AddItem';
 
 export default class Chart extends Component{
+    static contextType = BudgetMeContext;
     constructor(props){
         super(props)
-        this.state= {
-            chartData: {
-                labels: ['Restaurants', 'Bills', 'Groceries', 'Pet Supplies', 'Leftover Budget', 'Investments'],
-                datasets: [
-                  {
-                    label: 'My First dataset',
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1,
-                    hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-                    hoverBorderColor: 'rgba(255,99,132,1)',
-                    data: [65, 59, 80, 81, 40, 22]
-                  }
-                ]
-            },
-            currentCategory: { name: 'Total', amount: 347,  index: null }
+        this.state={
+            addItem: false
         }
     }
 
-    handleChangeCategory = (e, legendItem) => {
-        const data = this.state.chartData.datasets[0].data;
-        this.setState({
-            currentCategory: { name: legendItem.text, amount: data[legendItem.index],  index: legendItem.index}
-        });
+    componentDidMount(){
+        const { chartData, budget_values } = this.context;
+        this.context.createData(chartData.labels, budget_values);
     }
 
-    handleElementClick = (elementItem) => {
-        if(!elementItem.length){
-            return
-        }
-        const elementIndex = elementItem[0]._index;
-        const label = this.state.chartData.labels[elementIndex];
-        const data = this.state.chartData.datasets[0].data[elementIndex];
-
+    addItem = () => {
         this.setState({
-            currentCategory: { name: label, amount: data, index: elementIndex}
+            addItem: true
         })
     }
 
-    handleTotalClick = () => {
+    cancelItem = () => {
         this.setState({
-            currentCategory: {name: 'Total', amount: 347,  index: null }
+            addItem: false
         })
     }
 
     render(){
+        const { chartData, currentCategory } = this.context;
+
         return(
-            <div>
-                <h4 className="total" onClick={() => this.handleTotalClick()}>Total Budget: {this.state.chartData.datasets[0].data.reduce((a, b) => a+b)}</h4>
+            <div className="chart-container">
+                <h4 className="total" onClick={() => this.context.setTotalClick()}>Monthly Budget: {chartData.datasets[0].data.reduce((a, b) => a+b)}</h4>
                 <Pie
-                    data={this.state.chartData}
+                    data={chartData}
                     options={{ maintainAspectRatio: true,
                             legend: {
-                                onClick: (e, legendItem) => this.handleChangeCategory(e, legendItem)
+                                position: 'right',
+                                onClick: (e, legendItem) => this.context.setCurrentCategory(e, legendItem)
                             } }}
-                    getElementAtEvent={(elementItem) => this.handleElementClick(elementItem)}
+                    getElementAtEvent={(elementItem) => this.context.setElement(elementItem)}
                     />
-                <Category data={this.state.chartData} currentCategory={this.state.currentCategory}/>
+                <button type="button" className="add-item" onClick={()=>this.addItem()}>Add Item</button>
+                {this.state.addItem ? <AddItem cancelItem={()=>this.cancelItem()}/> : <Category data={chartData} currentCategory={currentCategory}/>}
             </div>
         )
     }

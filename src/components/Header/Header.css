@@ -1,5 +1,7 @@
 .header{
     height: 6vh;
+    border-bottom: 1pt grey solid;
+    box-shadow: 0 0 4px #002152, 0 0 7px #0000FF;
 }
 
 .headerMenu{
@@ -14,4 +16,34 @@ h2{
     text-align: center;
     margin: 0 auto;
     font-size: 24pt;
+    color: rgb(0, 125, 209);
+    text-shadow: 2px 2px 4px #6c94c2;
+}
+
+.auth{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 0;
+    right: 0;
+}
+
+.auth-button{
+    border: none;
+    color: white;
+    margin: .1rem;
+    border-radius: 3pt 3pt;
+    font-size: 10pt;
+    padding: .2rem;
+    background-color: rgb(52, 123, 255);
+}
+
+.auth-button:hover{
+    border: .5pt blue solid;
+    background-color: white;
+    color: black;
+    margin: .1rem;
+    border-radius: 3pt 3pt;
+    font-size: 10pt;
+    padding: .2rem;
 }

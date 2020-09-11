@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import './HomePage.css';
-import { Link } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import "./HomePage.css"
-
+import Chart from '../../components/Chart/Chart';
+import BudgetMeContext from '../../context/BudgetMeContext';
 
 
 export default class HomePage extends Component{
+    static contextType = BudgetMeContext;
     static defaultProps = {
         location: {},
         history: {
@@ -16,15 +17,15 @@ export default class HomePage extends Component{
 
     render(){
         return(
-            <div>
+            <div className="background">
                 <Header/>
                 <section className='description'>
-                    BudgetMe is a free-to-use budgeting web application.  Simply enter your total budget by the month and keep track of your spending by adding it to customizable categories
+                    BudgetMe is a free-to-use budgeting web application.  Keep track of your spending by adding it to customizable categories.
                 </section>
-                <div className='home-page-search'>
-
+                <div className='chart-home'>
+                    <Chart props={this.context.data}/>
                 </div>
-                <section className='register-text'>
+                <section className='register'>
                     
                 </section>
                 

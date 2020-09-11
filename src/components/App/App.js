@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 import { Switch, Route } from 'react-router';
 import HomePage from '../../routes/HomePage/HomePage';
-import Chart from '../../components/Chart/Chart';
 import BudgetMeContext from '../../context/BudgetMeContext';
 
 export default class App extends Component {
@@ -46,16 +45,10 @@ export default class App extends Component {
 
   render(){
     return (
-    
       <div className="App">
         <Switch>
           <Route component={HomePage}></Route>
         </Switch>
-        <header className="App-header">
-          <Chart />
-          
-        </header>
-        
       </div>
     );
   }

@@ -1,3 +1,7 @@
 .item{
     list-style-type: none;
+    border: 2pt rgb(127, 127, 255) solid;
+    border-radius: 10px 10px;
+    margin: .5rem;
+    padding: .5rem;
 }

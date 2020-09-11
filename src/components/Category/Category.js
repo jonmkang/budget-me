@@ -1,49 +1,22 @@
 import React, { Component } from 'react';
 import Item from '../Item/Item';
-
+import BudgetMeContext from '../../context/BudgetMeContext';
+import './Category.css';
 
 export default class Category extends Component {
-    constructor(props){
-        super(props)
-        this.state={
-            categoryItems: [
-                {
-                    Le_Gamin: 22,
-                    Pizza_Prince: 18,
-                    Cafe_Alula: 25
-                },
-                {
-                    Electricity: 20,
-                    Internet: 39
-                },
-                {
-                    Hmart: 40,
-                    Whole_Foods: 20,
-                    Associated_Foods: 20
-                },
-                {
-                    Cat_food: 25,
-                    Cat_litter: 35,
-                    Cat_treats: 21
-                },
-                {
-                    Leftover_budget: 40
-                },
-                {
-                    Robinhood: 22
-                }
-            ]
-        }
-    }
+    static contextType = BudgetMeContext;
     
     render(){
-        const { name, amount, index } = this.props.currentCategory;
-        if(index){
-            const items = Object.entries(this.state.categoryItems[index]).map((item, idx)=> <Item key={idx+item} item={item}/>)
+        const { name, index } = this.context.currentCategory;
+        const data = this.context.chartData.datasets[0].data;
+        
+        if(index || index === 0){
+            const findName = name.split(' ').join('_');
+            const items = this.context.budget_values[findName].map((item, idx) => <Item category={findName} index={idx} key={idx+item} item={item}/>)
             return(
-                <div>
-                    {name}: {amount}
-                    <ul>
+                <div >
+                    <h5>{name}: ${data[index]}</h5>
+                    <ul className="list">
                         {items}
                     </ul>
                 </div>
@@ -51,13 +24,13 @@ export default class Category extends Component {
         }
 
         const total = this.props.data.datasets[0].data.reduce((a, b) => a+b);
-        const categories = this.props.data.labels.map((item, idx)=> <li className="item" key={idx}>{item}: {this.props.data.datasets[0].data[idx]}</li>)
+        const categories = this.props.data.labels.map((item, idx)=> <li className="item" key={idx}>{item}: ${this.props.data.datasets[0].data[idx]}</li>)
         return(
             
 
             <div>
-                Total: {total}
-                <ul>
+                <h5>Total spent: {total}</h5>
+                <ul className="list">
                     {categories}
                 </ul>
             </div>
