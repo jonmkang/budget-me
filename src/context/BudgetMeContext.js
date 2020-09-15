@@ -3,22 +3,25 @@ import config from '../config'
 
 const BudgetMeContext = React.createContext({
     chartData: {},
+    user_id: 1,
     budget_values: {},
     currentCategory: {},
     userId: null,
     error: null,
-    addItem: () => {},
     addCategory: () => {},
-    createData: () => {},
-    setError: () => {},
-    setUserId: () => {},
-    setData: () => {},
-    setItem: () => {},
-    setCurrentCategory: () => {},
-    setElement: () => {},
-    setTotalClick: () => {},
+    addItem: () => {},
     clearError: () => {},
     clearUserId: () => {},
+    createData: () => {},
+    setBudgetValues: () => {},
+    setCurrentCategory: () => {},
+    setData: () => {},
+    setElement: () => {},
+    setError: () => {},
+    setItem: () => {},
+    setLabels: () => {},
+    setTotalClick: () => {},
+    setUserId: () => {},
 })
 
 export default BudgetMeContext
@@ -81,7 +84,25 @@ export class BudgetMeProvider extends Component{
             ]
         },
         error: null,
-        userId: null
+        user_id: 1
+    }
+
+    //Adds new category to context
+    addCategory = category => {
+        const labels = this.state.chartData.labels;
+        
+        if(labels.includes(category)){
+            return
+        }
+        
+        labels.push(category)
+
+        let statusCopy = Object.assign({}, this.state.chartData)
+        statusCopy.datasets[0].labels = labels;
+            
+        this.setState({
+            chartData: statusCopy
+        })
     }
 
     //adds item to correct category object
@@ -106,33 +127,6 @@ export class BudgetMeProvider extends Component{
         this.createData(labels, budget_values)
     }
 
-    addCategory = category => {
-        const labels = this.state.chartData.labels;
-        
-        if(labels.includes(category)){
-            return
-        }
-        
-        labels.push(category)
-        labels.sort((a, b) => a - b);
-
-        let statusCopy = Object.assign({}, this.state.chartData)
-        statusCopy.datasets[0].labels = labels;
-            
-        this.setState({
-            chartData: statusCopy
-        })
-    }
-
-    setUserId = userId => {
-        window.sessionStorage.setItem(config.USER_ID, userId)
-    }
-
-    setError = error => {
-        console.error(error)
-        this.setState({ error })
-    }
-
     clearError = () => {
         this.setState({ error: null })
     }
@@ -148,50 +142,37 @@ export class BudgetMeProvider extends Component{
         this.setData(total_values);
     }
 
-    //Sets values from data given from API
-    setData = newData => {
-        if(Array.isArray(newData)){
-            let statusCopy = Object.assign({}, this.state.chartData)
-            statusCopy.datasets[0].data = newData;
-            
-            this.setState({
-                chartData: statusCopy
-            })
-        }
-    }
+    //uses api data to set budget values for app
+    setBudgetValues = (values,  labels) => {
+        //Creates new budget object
+        const newBudget = {};
 
-    //updates current category amount
-    updateTotal = () => {
-        if(this.state.currentCategory.index === null){
-            return
-        }
+        //iterates through each item
+        values.forEach(item => {
+            //makes sure to create a proper object key
+            const label = item[2].split(' ').join('_');
 
-        const data = this.state.chartData.datasets[0].data;
-        this.setState({
-            currentCategory: {
-                ...this.state.currentCategory,
-                amount: data[this.state.currentCategory.index]
-            }
+
+            //creates an array pair of amount and name
+            const arrToPush = [item[0], item[1]];
+
+            //If the key doesn't exist, create an array with arrToPush as arr[0]
+            if(!newBudget[label]){
+                newBudget[label] = [arrToPush]
+
+            //If it exists, push arrToPush onto the existing array in the key-value pair
+            }else{
+                newBudget[label].push(arrToPush)
+            }            
         })
-    }
 
-    //Replaces the item in context with the edited item
-    setItem = itemInfo => {
+        //Creates new budget in state to use for context
+        this.setState({
+            budget_values: newBudget
+        })
 
-        //Check if item is an array
-        if(Array.isArray(itemInfo)){
-            //Assigns the budget values to a temp. variable and replaces the array inside the correct index
-            let statusCopy = Object.assign({}, this.state.budget_values)
-            statusCopy[itemInfo[0]][itemInfo[1]] = itemInfo[2];
-
-
-            this.setState({
-                budget_values: statusCopy
-            })
-
-            //updates the new total
-            this.updateTotal()
-        }
+        //Uses new budget values to re-create pie chart data
+        this.createData(this.state.chartData.labels, newBudget)
     }
 
     //Handles changes on clicking legend
@@ -202,6 +183,18 @@ export class BudgetMeProvider extends Component{
         });
     }
 
+    //Sets values from data given from API
+    setData = newData => {
+        if(Array.isArray(newData)){
+            let statusCopy = Object.assign({}, this.state.chartData)
+            statusCopy.datasets[0].data = newData;
+            
+            this.setState({
+                chartData: statusCopy
+            })
+        }
+    }    
+    
     //handles changes in categories on pie chart
     //catches error of clicking legend due to difference in element
     setElement = (elementItem) => {
@@ -217,13 +210,66 @@ export class BudgetMeProvider extends Component{
         })
     }
 
+    setError = error => {
+        console.error(error)
+        this.setState({ error })
+    }
+    
+    //Replaces the item in context with the edited item
+    setItem = itemInfo => {
+
+        //Check if item is an array
+        if(Array.isArray(itemInfo)){
+            //Assigns the budget values to a temp. variable and replaces the array inside the correct index
+            let statusCopy = Object.assign({}, this.state.budget_values)
+            statusCopy[itemInfo[0]][itemInfo[1]] = itemInfo[2];
+
+            this.setState({
+                budget_values: statusCopy
+            })
+
+            //updates the new total
+            this.updateTotal()
+        }
+    }
+
+    setLabels = labels => {
+        if(Array.isArray(labels)){
+            let statusCopy = Object.assign({}, this.state.chartData)
+            statusCopy.labels = labels;
+
+            this.setState({
+                chartData: statusCopy
+            })
+        }
+    }
+
+    setUserId = userId => {
+        window.sessionStorage.setItem(config.USER_ID, userId)
+    }
+
+
     //Shows total budget allocation upon click
     setTotalClick = () => {
         this.setState({
             currentCategory: {name: 'Total', amount: 347,  index: null }
         })
     }
+    
+    //updates current category amount
+    updateTotal = () => {
+        if(this.state.currentCategory.index === null){
+            return
+        }
 
+        const data = this.state.chartData.datasets[0].data;
+        this.setState({
+            currentCategory: {
+                ...this.state.currentCategory,
+                amount: data[this.state.currentCategory.index]
+            }
+        })
+    }
     render() {
         const value = {
             chartData: this.state.chartData,
@@ -236,11 +282,13 @@ export class BudgetMeProvider extends Component{
             setError: this.setError,
             clearError: this.clearError,
             clearUserId: this.clearUserId,
+            setBudgetValues: this.setBudgetValues,
             setCurrentCategory: this.setCurrentCategory,
             setElement: this.setElement,
             setTotalClick: this.setTotalClick,
             setData: this.setData,
             setItem: this.setItem,
+            setLabels: this.setLabels,
             addItem: this.addItem,
             addCategory: this.addCategory
         }

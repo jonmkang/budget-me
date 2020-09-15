@@ -4,3 +4,13 @@
     padding-right: 5%;
     text-indent: 1rem;
 }
+
+
+@media screen and (min-width: 540px){
+    .description{
+        font-size: 18pt;
+        margin: 2rem;
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+}

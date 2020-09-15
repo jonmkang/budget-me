@@ -46,6 +46,7 @@ export default class Chart extends Component{
                             } }}
                     getElementAtEvent={(elementItem) => this.context.setElement(elementItem)}
                     />
+                
                 <button type="button" className="add-item" onClick={()=>this.addItem()}>Add Item</button>
                 {this.state.addItem ? <AddItem cancelItem={()=>this.cancelItem()}/> : <Category data={chartData} currentCategory={currentCategory}/>}
             </div>

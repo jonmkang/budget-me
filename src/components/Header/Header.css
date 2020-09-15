@@ -4,14 +4,6 @@
     box-shadow: 0 0 4px #002152, 0 0 7px #0000FF;
 }
 
-.headerMenu{
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    left: 0;
-    z-index: 0;
-}
-
 h2{
     text-align: center;
     margin: 0 auto;
@@ -35,7 +27,7 @@ h2{
     border-radius: 3pt 3pt;
     font-size: 10pt;
     padding: .2rem;
-    background-color: rgb(52, 123, 255);
+    background-color: rgb(0, 125, 209);
 }
 
 .auth-button:hover{
@@ -46,4 +38,32 @@ h2{
     border-radius: 3pt 3pt;
     font-size: 10pt;
     padding: .2rem;
+}
+
+@media screen and (min-width: 540px){
+    .header{
+        border-bottom: 2pt grey solid;
+        box-shadow: 0 0 8px #002152, 0 0 10px #0000FF;
+    }
+
+    h2{
+        font-size: 28pt;
+    }
+
+    .auth{
+        flex-direction: row;
+        height: 6vh;
+    }
+
+    .auth-button{
+        padding: .25rem;
+        font-size: 14pt;
+        margin: .5rem;
+    }
+
+    .auth-button:hover{
+        margin: .5rem;
+        font-size: 14pt;
+        padding: .25rem;
+    }
 }
