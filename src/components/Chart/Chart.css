@@ -1,7 +1,3 @@
-.total{
-    text-align: center;
-}
-
 .chart-container{
     display: flex;
     flex-direction: column;
@@ -17,4 +13,10 @@
     padding: .5rem;
     border: none;
     border-radius: 5pt 5pt;
+}
+
+.button-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 }

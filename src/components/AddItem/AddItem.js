@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import BudgetMeContext from '../../context/BudgetMeContext';
+import ReactDOM from 'react-dom';
 import './AddItem.css';
 
 export default class AddItem extends Component {
@@ -7,23 +8,33 @@ export default class AddItem extends Component {
     constructor(props){
         super(props)
         this.state = {
-            category: false,
             error: null,
             newCategory: ""
         }
+        
+        this.setWrapperRef = this.setWrapperRef.bind(this);
+        this.handleClickOutside = this.handleClickOutside.bind(this);
     }
 
-    handleCategory = e => {
-        if(e.target.value === 'add-category'){
-            this.setState({
-                category: true
-            })
-        }else{
-            this.setState({
-                category: false
-            })
-        }
+    componentDidMount() {
+        document.addEventListener('click', this.handleClickOutside, true);
     }
+    
+    componentWillUnmount() {
+        document.removeEventListener('click', this.handleClickOutside, true);
+    }
+
+    setWrapperRef(node) {
+        this.wrapperRef = node;
+    }
+
+    handleClickOutside = e => {
+        /* Check that we've clicked outside of the container and that it is open */
+
+        if (this.wrapperRef && !this.wrapperRef.contains(e.target)) {
+            this.props.cancelItem()
+        }
+    };
 
     handleNewCategory = e => {
         const newCategory = e.target.value;
@@ -34,8 +45,7 @@ export default class AddItem extends Component {
 
     handleSubmit = e =>{
         e.preventDefault()
-        const { purchase, amount } = e.target
-        let category = ''
+        const { purchase, amount, category } = e.target
 
         if(!purchase.value){
             return this.setState({
@@ -49,14 +59,7 @@ export default class AddItem extends Component {
             })
         }
 
-        if(!this.state.category){
-            category = e.target.category.value;
-        }else{
-            category = this.state.newCategory
-        }
-
-        this.context.addCategory(category)
-        this.context.addItem(category, purchase.value, amount.value)
+        this.context.addItem(category.value, purchase.value, amount.value)
         this.setState({
             error: null
         })
@@ -66,15 +69,18 @@ export default class AddItem extends Component {
     render(){
         const categories = this.context.chartData.labels.map((item, idx) => <option value={item} key={idx}>{item}</option>)
         return(
-            <div>
-                <form className="add-item-form" onSubmit={(e) => this.handleSubmit(e)} autoComplete="off">
+            <div ref={this.setWrapperRef}>
+                <form 
+                    className="add-item-form" 
+                    onSubmit={(e) => this.handleSubmit(e)} 
+                    autoComplete="off"
+                    >
+                    
                     <div className="add-item-form-inputs">
                         <label htmlFor="category">Category</label>
                         <select id="category" name="category" onChange={(e)=>this.handleCategory(e)}>
                             {categories}
-                            <option value="add-category">Add category</option>
                         </select>
-                        {this.state.category ? <input id="new-category" name="new-category" placeholder="Enter category" onChange={(e)=>this.handleNewCategory(e)}/> : <></>}
                     </div>
                     <div className="add-item-form-inputs">
                         <label name="purchase">Name of expenditure </label>

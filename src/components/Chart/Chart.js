@@ -1,16 +1,23 @@
 import React, { Component } from 'react';
 import { Pie } from 'react-chartjs-2';
-import Category from '../../components/Category/Category'
-import './Chart.css'
+import Category from '../../components/Category/Category';
+import Total from '../Total/Total';
+import './Chart.css';
 import BudgetMeContext from '../../context/BudgetMeContext';
 import AddItem from '../AddItem/AddItem';
+import AddCategory from '../AddCategory/AddCategory';
+import EditCategories from '../EditCategories/EditCategories';
 
 export default class Chart extends Component{
     static contextType = BudgetMeContext;
+
     constructor(props){
         super(props)
         this.state={
-            addItem: false
+            addItem: false,
+            addCategory: false,
+            isHovering: false,
+            editCategory: false
         }
     }
 
@@ -20,8 +27,29 @@ export default class Chart extends Component{
     }
 
     addItem = () => {
+        const addItem = !this.state.addItem;
         this.setState({
-            addItem: true
+            addItem
+        });
+    }
+
+    addCategory = () => {
+        const addCategory = !this.state.addCategory;
+        this.setState({
+            addCategory
+        });
+    }
+
+    editCategory = () => {
+        const editCategory = !this.state.editCategory;
+        this.setState({
+            editCategory
+        });
+    }
+
+    cancelEditCategory = () => {
+        this.setState({
+            editCategory: false
         })
     }
 
@@ -31,12 +59,18 @@ export default class Chart extends Component{
         })
     }
 
+    cancelCategory = () => {
+        this.setState({
+            addCategory: false
+        })
+    }
+
     render(){
         const { chartData, currentCategory } = this.context;
 
         return(
             <div className="chart-container">
-                <h4 className="total" onClick={() => this.context.setTotalClick()}>Monthly Budget: {chartData.datasets[0].data.reduce((a, b) => a+b)}</h4>
+                <Total />
                 <Pie
                     data={chartData}
                     options={{ maintainAspectRatio: true,
@@ -46,9 +80,39 @@ export default class Chart extends Component{
                             } }}
                     getElementAtEvent={(elementItem) => this.context.setElement(elementItem)}
                     />
-                
-                <button type="button" className="add-item" onClick={()=>this.addItem()}>Add Item</button>
-                {this.state.addItem ? <AddItem cancelItem={()=>this.cancelItem()}/> : <Category data={chartData} currentCategory={currentCategory}/>}
+
+                <div className="button-container">
+                    <button 
+                        type="button" 
+                        className="add-item" 
+                        onClick={()=>this.addCategory()}>
+                            Add Category
+                        </button>
+
+                    <button 
+                        type="button" 
+                        className="add-item" 
+                        onClick={()=>this.editCategory()}>
+                            Edit Categories
+                        </button>
+
+                    <button 
+                        type="button" 
+                        className="add-item" 
+                        onClick={()=>this.addItem()}>
+                            Add Item
+                        </button>
+                </div>    
+                    {/*If this.state.addCategory is true it renders the addcategory form */}
+                    {this.state.addCategory && <AddCategory cancelCategory={()=>this.cancelCategory()}/>}
+                    
+                    {/*If this.state.editCategory is true it renders the editcategory form */}
+                    {this.state.editCategory && <EditCategories cancelEditCategory={()=>this.cancelEditCategory()}/>}
+                    
+                    {/*If this.state.addItem is true it renders the addItem form */}
+                    {this.state.addItem && <AddItem cancelItem={()=>this.cancelItem()}/>}
+                    
+                    <Category data={chartData} currentCategory={currentCategory}/>
             </div>
         )
     }

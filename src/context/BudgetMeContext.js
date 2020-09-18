@@ -138,12 +138,14 @@ export class BudgetMeProvider extends Component{
     //creates a data list for the pie graph using values from the API
     createData = (labels, budget_values) => {
         const names = labels.map(item=> item.split(' ').join('_'));
-        const total_values = names.map(item => budget_values[item].map((a) => a[1]).reduce((a, b) => a+b))
+        const total_values = names.map(item =>
+            budget_values[item] ?
+                budget_values[item].map((a) => a[1]).reduce((a, b) => a+b) : 0)
         this.setData(total_values);
     }
 
     //uses api data to set budget values for app
-    setBudgetValues = (values,  labels) => {
+    setBudgetValues = (values) => {
         //Creates new budget object
         const newBudget = {};
 
@@ -154,7 +156,7 @@ export class BudgetMeProvider extends Component{
 
 
             //creates an array pair of amount and name
-            const arrToPush = [item[0], item[1]];
+            const arrToPush = [item[0], item[1], item[3]];
 
             //If the key doesn't exist, create an array with arrToPush as arr[0]
             if(!newBudget[label]){

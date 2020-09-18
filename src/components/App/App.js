@@ -3,36 +3,17 @@ import './App.css';
 import { Switch, Route } from 'react-router';
 import HomePage from '../../routes/HomePage/HomePage';
 import BudgetMeContext from '../../context/BudgetMeContext';
+import CategoryApiService from '../../services/categories-api-service';
+import ItemsApiService from '../../services/items-api-service';
 
 export default class App extends Component {
   static contextType = BudgetMeContext;
   
   componentDidMount(){
-    fetch(`http://localhost:8000/api/categories/`+this.context.user_id, {
-      method: "GET",
-    })
-      .then(
-        res => res.json())
-      .then(res => 
-        {
-          const labels = res.map(item => item.category_title)
-          this.context.setLabels(labels)
-      })
+    CategoryApiService.getCategories(this.context.user_id,  (labels) => this.context.setLabels(labels));
+    ItemsApiService.getItems(this.context.user_id,  (values)=> this.context.setBudgetValues(values), this.context.chartData.labels);
 
-    fetch("http://localhost:8000/api/items/"+this.context.user_id, {
-      method: "GET"
-    })
-      .then(
-        res => res.json())
-      .then(res => 
-        {
-          const values_arr = res.map(item => [item.item_name, item.amount, item.category_title])
-          this.context.setBudgetValues(values_arr, this.context.chartData.labels)
-        }
-      )
-
-      this.context.clearError()
-      console.log(this.context)
+    this.context.clearError()
   }
 
 

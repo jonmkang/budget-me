@@ -1,7 +1,40 @@
+li{
+    list-style-type: none;
+}
+
+.list-edit{
+    margin: 0 auto;
+}
+
 .item{
     list-style-type: none;
+    width: 35%;
     border: 2pt rgb(127, 127, 255) solid;
     border-radius: 10px 10px;
     margin: .5rem;
     padding: .5rem;
+}
+
+.item-edit-box{
+    list-style-type: none;
+    border: 2pt rgb(127, 127, 255) solid;
+    border-radius: 10px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.edit-labels{
+    display: flex;
+    justify-content: space-between;
+    padding: .5rem;
+}
+
+input{
+    width: 60%;
+}
+
+.item:hover{
+
 }
