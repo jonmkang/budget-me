@@ -57,7 +57,7 @@ export default class Category extends Component {
             }
             return(
                 <div>
-                    <h5>{name}: ${data[index]}</h5>
+                    <h5>{name}: $0</h5>
                     <p className="empty-list">Add an item for this category!</p>
                 </div>
             )

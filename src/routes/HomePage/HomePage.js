@@ -20,7 +20,7 @@ export default class HomePage extends Component{
             <div className="background">
                 <Header/>
                 <section className='description'>
-                    BudgetMe is a free-to-use budgeting web application.  Keep track of your spending by adding it to customizable categories.
+                    BudgetMe is a free-to-use budgeting web application.  Keep track of your spending by adding it to customizable categories.  This is currently at the demo stage to try out.  Registration will come soon!
                 </section>
                 <div className='chart-home'>
                     <Chart props={this.context.data}/>

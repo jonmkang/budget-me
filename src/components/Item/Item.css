@@ -31,6 +31,22 @@ li{
     padding: .5rem;
 }
 
+.edit-labels label{
+    font-weight: bold;
+}
+
+.edit-labels input{
+    text-align: center;
+    font-size: 14pt;
+    border-radius: 10pt 10pt;
+}
+
+.edit-labels input:hover, .edit-labels input:focus{
+    font-size: 14pt;
+    border: 2pt solid rgb(135, 135, 250);
+    box-shadow: 4px 4px 2px 1px rgba(0, 0, 255, .2);
+}
+
 input{
     width: 60%;
 }
@@ -38,4 +54,10 @@ input{
 .item:hover{
     border: 3pt rgb(127, 127, 255) solid;
     box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
+}
+
+.item:active{
+    background: rgb(127, 127, 255);
+    color: white;
+    font-weight: bold;
 }

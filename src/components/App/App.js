@@ -10,9 +10,8 @@ export default class App extends Component {
   static contextType = BudgetMeContext;
   
   componentDidMount(){
-    CategoryApiService.getCategories(this.context.user_id,  (labels) => this.context.setLabels(labels));
+    CategoryApiService.getCategories(this.context.user_id,  (labels) => this.context.setLabels(labels),  (categories) => this.context.setCategories(categories));
     ItemsApiService.getItems(this.context.user_id,  (values)=> this.context.setBudgetValues(values), this.context.chartData.labels);
-
     this.context.clearError()
   }
 

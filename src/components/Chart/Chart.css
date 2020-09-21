@@ -9,10 +9,20 @@
     margin: .5rem;
     background-color: #008CBA;
     color: white;
-    font-size: 12pt;
+    font-size: 10pt;
     padding: .5rem;
     border: none;
     border-radius: 5pt 5pt;
+}
+
+.add-item:hover{
+    border: 2pt solid rgb(58, 58, 112);
+    box-shadow: 4px 4px 2px 1px rgba(5, 5, 56, 0.2);
+}
+
+.add-item:active{
+    background-color: rgb(58, 58, 112);
+    border: 2pt solid rgb(0, 0, 0);
 }
 
 .button-container{

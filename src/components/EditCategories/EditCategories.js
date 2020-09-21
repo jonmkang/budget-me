@@ -50,8 +50,8 @@ export default class EditCategories extends Component{
     }
 
     handleDeleteCategory = () => {
-        const name = document.getElementById('category-to-change').value
-        CategoryApiService.deleteCategory(this.context.user_id, name, (labels) => this.context.setLabels(labels)) 
+        const name = document.getElementById('category_to_change').value
+        CategoryApiService.deleteCategory(this.context.user_id, name, (labels) => this.context.setLabels(labels), (categories) => this.context.setCategories(categories)) 
         this.props.cancelEditCategory()
     }
 
@@ -66,7 +66,7 @@ export default class EditCategories extends Component{
         const newCategory = {
             category_title: title.value
         }
-        CategoryApiService.updateCategoryTitle(this.context.user_id, category_to_change.value, newCategory, (labels) => this.context.setLabels(labels))
+        CategoryApiService.updateCategoryTitle(this.context.user_id, category_to_change.value, newCategory, (labels) => this.context.setLabels(labels), (categories) => this.context.setCategories(categories))
         this.props.cancelEditCategory()
 
         this.setState({

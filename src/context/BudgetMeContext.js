@@ -6,6 +6,7 @@ const BudgetMeContext = React.createContext({
     user_id: 1,
     budget_values: {},
     currentCategory: {},
+    categories: {},
     userId: null,
     error: null,
     addCategory: () => {},
@@ -14,6 +15,7 @@ const BudgetMeContext = React.createContext({
     clearUserId: () => {},
     createData: () => {},
     setBudgetValues: () => {},
+    setCategories: () => {},
     setCurrentCategory: () => {},
     setData: () => {},
     setElement: () => {},
@@ -83,6 +85,7 @@ export class BudgetMeProvider extends Component{
                 ["Leftover budget", 40]
             ]
         },
+        categories: {},
         error: null,
         user_id: 1
     }
@@ -175,6 +178,14 @@ export class BudgetMeProvider extends Component{
 
         //Uses new budget values to re-create pie chart data
         this.createData(this.state.chartData.labels, newBudget)
+    }
+
+    setCategories = categories_arr => {
+        const categories_obj = {}
+        categories_arr.map(item => categories_obj[item.category_title] = item)
+        this.setState({
+            categories: categories_obj
+        })
     }
 
     //Handles changes on clicking legend
@@ -277,6 +288,7 @@ export class BudgetMeProvider extends Component{
             chartData: this.state.chartData,
             budget_values: this.state.budget_values,
             currentCategory: this.state.currentCategory,
+            categories: this.state.categories,
             user_id: this.state.user_id,
             error: this.state.error,
             createData: this.createData,
@@ -285,6 +297,7 @@ export class BudgetMeProvider extends Component{
             clearError: this.clearError,
             clearUserId: this.clearUserId,
             setBudgetValues: this.setBudgetValues,
+            setCategories: this.setCategories,
             setCurrentCategory: this.setCurrentCategory,
             setElement: this.setElement,
             setTotalClick: this.setTotalClick,

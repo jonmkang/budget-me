@@ -8,10 +8,12 @@ export default class Header extends Component{
         return (
             <div className="header">   
                 <h2>BudgetMe</h2>
-                <div className="auth">
+                
+                {/* Will introduce this in the next patch/iteration of MVP */}
+                {/* <div className="auth">
                     <button className="auth-button" type="button">Login</button>
                     <button className="auth-button" type="button">Register</button>
-                </div>
+                </div> */}
             </div>
         )
     }

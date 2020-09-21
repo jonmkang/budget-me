@@ -23,7 +23,22 @@ const ItemsApiService = {
           'Content-type': 'application/json', 
         }
       })
-        .then(res => console.log(res))
+        .then(res => res.json())
+    },
+    addItem(item, user_id, addItem,  setBudgetValues){
+      return fetch(`${config.API_BASE_URL}/items/${user_id}`, {
+        method: 'POST',
+        body: JSON.stringify(item),
+        headers:{
+          "Accept":"application/json",
+          'Content-type': 'application/json', 
+        }
+      })
+        .then(res => res.json())
+        .then(res => {
+          addItem(item.category_id, item.item_name, item.amount)
+          this.getItems(user_id, setBudgetValues)
+        })
     }
 }
 

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './Item.css'
 import BudgetMeContext from '../../context/BudgetMeContext';
-import ItemApiService from '../../services/items-api-service';
 
 export default class Item extends Component{
     static contextType = BudgetMeContext;
@@ -56,7 +55,7 @@ export default class Item extends Component{
 
     updateItem = e => {
         e.preventDefault();
-        const { setItem, createData, user_id } = this.context;
+        const { setItem, createData } = this.context;
         const { purchase, amount } = e.target
         console.log(this.props)
         

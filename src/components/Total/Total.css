@@ -2,10 +2,34 @@
     position: relative;
     text-align: center;
     font-size: 10pt;
-    top: -1rem;
+    font-weight: bold;
+    top: -2.5rem;
+    color: white;
 }
 
 .total{
     text-align: center;
     top: -1rem;
+    font-size: 14pt;
+    margin: 1rem auto;
+    padding-top: .25rem;
+    padding-bottom: .25rem;
+    border: 1pt purple solid;
+    border-radius: 20pt 20pt;
+    width: 60%;
+}
+
+.total-container:hover .total{
+    padding-bottom:1.5rem;
+    background-color: rgb(0, 125, 209);
+    color: white;
+}
+
+.total:active{
+    border: 2pt white solid;
+    box-shadow: 0px 0px 2px 2px black;
+}
+
+.total-container{
+    height: 10vh;
 }

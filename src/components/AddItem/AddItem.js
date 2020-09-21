@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import BudgetMeContext from '../../context/BudgetMeContext';
+import ItemsApiService from '../../services/items-api-service';
 import './AddItem.css';
 
 export default class AddItem extends Component {
@@ -45,7 +46,14 @@ export default class AddItem extends Component {
     handleSubmit = e =>{
         e.preventDefault()
         const { purchase, amount, category } = e.target
+        const data = this.context.chartData.datasets[0].data;
 
+        const newItem = {
+            item_name: purchase.value,
+            amount: parseInt(amount.value),
+            category_id: this.context.categories[category.value].category_id,
+            user_id: this.context.user_id
+        }
         if(!purchase.value){
             return this.setState({
                 error: "Please give a name to the expenditure"
@@ -57,11 +65,23 @@ export default class AddItem extends Component {
                 error: "Please give a positive number for the amount"
             })
         }
-
-        this.context.addItem(category.value, purchase.value, amount.value)
+        console.log(newItem)
+        ItemsApiService.addItem(newItem, this.context.user_id, (category, purchase, amount) => this.context.addItem(category, purchase, amount), (values)=> this.context.setBudgetValues(values))
         this.setState({
             error: null
         })
+
+        const index = this.context.chartData.labels.indexOf(category.value);
+
+        const legendItem = {
+            text: category.value,
+            amount: data[index],
+            index: index
+        }
+
+        console.log(index, data,  category.value)
+
+        this.context.setCurrentCategory(e, legendItem)
         this.props.cancelItem()
     }
 

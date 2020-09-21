@@ -29,8 +29,12 @@ export default class Total extends Component{
         return(
             <div 
                 onMouseEnter={this.handleMouseHover} 
-                onMouseLeave={this.handleMouseHover}>
-                <h4 className="total" onClick={() => this.context.setTotalClick()}>Budget: {chartData.datasets[0].data.reduce((a, b) => a+b)}</h4>
+                onMouseLeave={this.handleMouseHover}
+                className="total-container">
+                <h4 
+                    className="total" 
+                    onClick={() => this.context.setTotalClick()}>
+                        Budget: {chartData.datasets[0].data.reduce((a, b) => a+b)}</h4>
                 {this.state.isHovering && <div className="total-budget">View total budget</div>}
             </div>
         )
