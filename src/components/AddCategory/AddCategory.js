@@ -7,7 +7,9 @@ export default class AddCategory extends Component {
 
     constructor(props){
         super(props)
-
+        this.state={
+            error: ""
+        }
         this.setWrapperRef = this.setWrapperRef.bind(this);
         this.handleClickOutside = this.handleClickOutside.bind(this);
     }
@@ -32,20 +34,35 @@ export default class AddCategory extends Component {
         }
     };
 
+    addCategory = e => {
+        e.preventDefault()
+        const { category_title} = e.target
+        if(!category_title.value){
+            return this.setState({
+                error: "Enter a title for the new category"
+            })
+        }
+        
+        this.setState({
+            error: ''
+        })
+        this.props.cancelCategory()
+    }
+
     render(){
         return(
-            <div ref={this.setWrapperRef}>
+            <div ref={this.setWrapperRef} className="add-category-container">
                 <form onSubmit={(e)=>this.addCategory(e)}>
-                    <div>
+                    <div className="add-category-box">
                         <label>Category Title:</label>
-                        <input type="text" name="category-title"/>
+                        <input type="text" name="category_title" autoComplete="off"/>
                     </div>
                     
-                    <div className="submit-cancel-buttons">
-                        <button type="button" onClick={()=>this.props.cancelCategory()}>Cancel</button>
-                        <button type="submit">Submit</button>
+                    <div className="add-category-buttons">
+                        <button className="submit-cancel-buttons" type="button" onClick={()=>this.props.cancelCategory()}>Cancel</button>
+                        <button className="submit-cancel-buttons" type="submit">Submit</button>
                     </div>
-                    
+                    {this.state.error}
                 </form>
             </div>
         )

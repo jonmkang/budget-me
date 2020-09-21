@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './Item.css'
 import BudgetMeContext from '../../context/BudgetMeContext';
-import ReactDOM, { findDOMNode }  from 'react-dom';
 import ItemApiService from '../../services/items-api-service';
 
 export default class Item extends Component{

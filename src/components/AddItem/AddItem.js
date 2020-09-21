@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import BudgetMeContext from '../../context/BudgetMeContext';
-import ReactDOM from 'react-dom';
 import './AddItem.css';
 
 export default class AddItem extends Component {
@@ -36,7 +35,7 @@ export default class AddItem extends Component {
         }
     };
 
-    handleNewCategory = e => {
+    handleCategory = e => {
         const newCategory = e.target.value;
         this.setState({
             newCategory
@@ -87,15 +86,24 @@ export default class AddItem extends Component {
                         <input id="purchase" name="purchase"></input>
                     </div>
                     <div className="add-item-form-inputs">
-                        <label name="amount">Amount: </label>
+                        <label name="amount">Amount </label>
                         <input type="number" id="amount" name="amount"></input>
                     </div>
                     <div className="add-item-form-buttons">
-                        <button type="button" onClick={()=> this.props.cancelItem()}>Cancel</button>
-                        <button type="submit" >Submit</button>
+                        <button 
+                            className="submit-cancel-buttons"
+                            type="button" 
+                            onClick={()=> this.props.cancelItem()}>
+                                Cancel</button>
+                        <button 
+                            className="submit-cancel-buttons"
+                            type="submit" >
+                                Submit</button>
+                    </div>
+                    <div className="error">
+                        {this.state.error}
                     </div>
                 </form>
-                {this.state.error}
             </div>
         )
     }

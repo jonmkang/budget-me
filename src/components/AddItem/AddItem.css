@@ -3,4 +3,51 @@
     padding: 1rem;
     margin: 1rem;
     border-radius: 10pt 10pt;
+    display: flex;
+    flex-direction: column;
+}
+
+.add-item-form-inputs{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: .5rem;
+}
+
+.add-item-form-inputs label{
+    font-size: 12pt;
+    font-weight: bold;
+}
+
+.add-item-form-inputs label, .add-item-form-inputs input, .add-item-form-inputs select{
+    width: 40%;
+    border-radius: 10pt 10pt;
+    padding: .3rem;
+} 
+
+.error{
+    text-align: center;
+}
+
+.add-item-form-buttons{
+    margin: 0 auto;
+}
+
+#category{
+    padding: 0;
+    font-size: 14pt;
+    border: 2pt solid rgb(135, 135, 250);
+    border-radius: 10pt 10pt;
+    padding: .2rem;
+}
+
+#category:focus{
+    box-shadow: 4px 4px 2px 1px rgba(0, 0, 255, .2);
+}
+
+#amount:focus, #purchase:focus, #amount:hover, #purchase:hover{
+    font-size: 14pt;
+    border: 2pt solid rgb(135, 135, 250);
+    box-shadow: 4px 4px 2px 1px rgba(0, 0, 255, .2);
 }

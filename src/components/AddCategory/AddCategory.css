@@ -1,0 +1,48 @@
+.add-category-container{
+    border: 2pt solid rgb(135, 135, 250);
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: 10pt 10pt;
+    display: flex;
+    flex-direction: column;
+}
+
+.add-category-box{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: .5rem;
+}
+
+.add-category-box label{
+    font-weight: bold;
+}
+
+.add-category-box label, .add-category-box input{
+    width: 40%;
+}
+
+.add-category-box input{
+    text-align: center;
+    padding: 5pt;
+    border-radius: 25pt 25pt;
+}
+
+.add-category-box input:hover{
+    border: 2pt solid rgb(135, 135, 250);
+    box-shadow: 4px 4px 2px 1px rgba(0, 0, 255, .2);
+}
+
+.add-category-box input:focus{
+    font-size: 14pt;
+    border: 2pt solid rgb(135, 135, 250);
+    box-shadow: 4px 4px 2px 1px rgba(0, 0, 255, .2);
+}
+
+.add-category-buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}

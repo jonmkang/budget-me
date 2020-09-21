@@ -4,11 +4,7 @@ import './CategoryItem.css';
 
 export default class CategoryItem extends Component{
     static contextType = BudgetMeContext;
-    constructor(props){
-        super(props)
-        
-    }
-    // {item}: ${this.props.data.datasets[0].data[idx]}
+
     render(){
         const data = this.context.chartData.datasets[0].data;
         const legendItem = {
