@@ -21,6 +21,7 @@ export default class Chart extends Component{
         }
     }
 
+    //creates initial data values for the demo chart
     componentDidMount(){
         const { chartData, budget_values } = this.context;
         this.context.createData(chartData.labels, budget_values);

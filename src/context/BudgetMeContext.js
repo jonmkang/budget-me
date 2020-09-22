@@ -146,6 +146,9 @@ export class BudgetMeProvider extends Component{
     
     clearUserId = () => {
         window.sessionStorage.setItem(config.USER_ID, null)
+        this.setState({
+            user_id: 1
+        })
     }
 
     //creates a data list for the pie graph using values from the API
@@ -190,6 +193,7 @@ export class BudgetMeProvider extends Component{
         this.createData(this.state.chartData.labels, newBudget)
     }
 
+    //creates a categories object to keep the database category_ids' to use for adding items and editing categories
     setCategories = categories_arr => {
         const categories_obj = {}
         categories_arr.map(item => categories_obj[item.category_title] = item)

@@ -10,6 +10,8 @@ const CategoryApiService = {
             .then(res => 
               {
                 const labels = res.map(item => item.category_title)
+                //sets the inital categories and labels
+                //will be used more when users are implemented
                 setCategories(res)
                 setLabels(labels)
             })
@@ -24,6 +26,7 @@ const CategoryApiService = {
         }
       })
         .then(res => {
+          //resets the context based off the updated category
           this.getCategories(user_id, (labels) => setLabels(labels), (categories) => setCategories(categories))
         })
     },
@@ -32,6 +35,7 @@ const CategoryApiService = {
         method: "DELETE",
       })
         .then(resp => {
+          //resets cnotext based off the deleted category
           this.getCategories(user_id, (labels) => setLabels(labels), (categories) => setCategories(categories))
         })
     },
@@ -45,6 +49,7 @@ const CategoryApiService = {
         }
       })
           .then(res => {
+            //resets the context based off the added category
             this.getCategories(user_id, (labels) => setLabels(labels), (categories) => setCategories(categories))
           })
     },
@@ -55,7 +60,6 @@ const CategoryApiService = {
         .then(
           res => {
             res.json()
-            console.log(res.category)
           })
     }
 }

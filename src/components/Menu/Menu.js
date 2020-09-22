@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 
+
+//This component is not being used currently
 export default class Menu extends Component{
     constructor(){
         super()

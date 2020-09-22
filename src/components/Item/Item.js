@@ -87,10 +87,10 @@ export default class Item extends Component{
             })
         }
 
-    
         let item_id = this.props.item[2];
         let itemInfo = [this.props.category, this.props.index, [purchase.value, parseInt(amount.value), item_id]];
         
+        //creates object to push to database
         const itemObj = {
             item_id: item_id,
             amount: parseInt(amount.value),
@@ -101,7 +101,7 @@ export default class Item extends Component{
         ItemsApiService.editItem(itemObj, this.context.user_id)
         setItem(itemInfo);
 
-
+        //resets data values based off of the new created item
         const { chartData, budget_values } = this.context;
         createData(chartData.labels, budget_values);
         this.handleCancel();

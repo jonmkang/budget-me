@@ -35,6 +35,8 @@ export default class Category extends Component {
         //If the category index exists, creates items based off category
         if(index || index === 0){
             const findName = name.split(' ').join('_');
+            
+            //checks to see if values exist for the category
             if(this.context.budget_values[findName]){
                 const items = this.context.budget_values[findName].map((item, idx) => 
                 <Item 
