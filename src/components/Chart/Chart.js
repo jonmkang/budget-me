@@ -67,19 +67,24 @@ export default class Chart extends Component{
 
     render(){
         const { chartData, currentCategory } = this.context;
-
+        
         return(
             <div className="chart-container">
                 <Total />
-                <Pie
-                    data={chartData}
-                    options={{ maintainAspectRatio: true,
-                            legend: {
-                                position: 'right',
-                                onClick: (e, legendItem) => this.context.setCurrentCategory(e, legendItem)
-                            } }}
-                    getElementAtEvent={(elementItem) => this.context.setElement(elementItem)}
-                    />
+                <div className="graph-container">
+                    <Pie
+                        data={chartData}
+                        options={{
+                                maintainAspectRatio: false,
+                                responsive: true,
+                                legend: {
+                                    position: 'right',
+                                    onClick: (e, legendItem) => this.context.setCurrentCategory(e, legendItem)
+                                } }}
+                        getElementAtEvent={(elementItem) => this.context.setElement(elementItem)}
+                        />
+                </div>
+               
 
                 <div className="button-container">
                     <button 

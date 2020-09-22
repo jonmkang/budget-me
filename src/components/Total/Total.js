@@ -34,7 +34,7 @@ export default class Total extends Component{
                 <h4 
                     className="total" 
                     onClick={() => this.context.setTotalClick()}>
-                        Budget: {chartData.datasets[0].data.reduce((a, b) => a+b)}</h4>
+                        Budget: ${chartData.datasets[0].data.reduce((a, b) => a+b)}</h4>
                 {this.state.isHovering && <div className="total-budget">View total budget</div>}
             </div>
         )

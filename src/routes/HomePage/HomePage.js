@@ -25,10 +25,6 @@ export default class HomePage extends Component{
                 <div className='chart-home'>
                     <Chart props={this.context.data}/>
                 </div>
-                <section className='register'>
-                    
-                </section>
-                
             </div>
             
         )

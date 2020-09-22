@@ -3,15 +3,22 @@
     flex-direction: column;
 }
 
+.graph-container{
+    position: relative;
+    height: 40vh;
+    width: 80vw;
+    margin: 1rem auto;
+}
+
 .add-item{
-    width: 30%;
+    width: 35%;
     align-self: center;
-    margin: .5rem;
+    margin: .2rem;
     background-color: #008CBA;
     color: white;
     font-size: 10pt;
     padding: .5rem;
-    border: none;
+    border: 2pt white solid;
     border-radius: 5pt 5pt;
 }
 
@@ -29,4 +36,20 @@
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+}
+
+@media screen and (min-width: 720px){
+    .graph-container{
+        position: relative;
+        height: 40vh;
+        width: 50vw;
+        margin: 1rem auto;
+    }
+
+    .add-item{
+        font-size: 14pt;
+        padding: .5rem;
+        margin: 1rem;
+        width: 35%;
+    }
 }

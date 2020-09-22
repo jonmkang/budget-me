@@ -16,7 +16,7 @@
 }
 
 .add-item-form-inputs label{
-    font-size: 12pt;
+    font-size: 10pt;
     font-weight: bold;
 }
 
@@ -36,7 +36,7 @@
 
 #category{
     padding: 0;
-    font-size: 14pt;
+    font-size: 10pt;
     border: 2pt solid rgb(135, 135, 250);
     border-radius: 10pt 10pt;
     padding: .2rem;
@@ -46,8 +46,12 @@
     box-shadow: 4px 4px 2px 1px rgba(0, 0, 255, .2);
 }
 
-#amount:focus, #purchase:focus, #amount:hover, #purchase:hover{
-    font-size: 14pt;
+#amount, #purchase{
     border: 2pt solid rgb(135, 135, 250);
+}
+
+#amount:focus, #purchase:focus, #amount:hover, #purchase:hover{
+    font-size: 10pt;
+    border: 2pt solid rgb(88, 88, 163);
     box-shadow: 4px 4px 2px 1px rgba(0, 0, 255, .2);
 }

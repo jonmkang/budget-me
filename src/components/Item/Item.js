@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Item.css'
 import BudgetMeContext from '../../context/BudgetMeContext';
+import ItemsApiService from '../../services/items-api-service';
 
 export default class Item extends Component{
     static contextType = BudgetMeContext;
@@ -8,7 +9,9 @@ export default class Item extends Component{
     constructor(props){
         super(props)
         this.state={
-            active: false
+            active: false,
+            handleDelete: false,
+            error: ''
         }
 
         this.setWrapperRef = this.setWrapperRef.bind(this);
@@ -33,6 +36,9 @@ export default class Item extends Component{
         if (this.wrapperRef && !this.wrapperRef.contains(e.target)) {
             this.props.handleOutsideClick()
             this.props.handleEditingItem();
+            this.setState({
+                handleDelete: false
+            })
             this.handleCancel()
         }
     };
@@ -53,14 +59,38 @@ export default class Item extends Component{
         this.props.handleEditingItem();
     }
 
+    handleDelete = (e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        const handleDelete = !this.state.handleDelete;
+        this.setState({
+            handleDelete
+        })
+        
+    }
+
     updateItem = e => {
         e.preventDefault();
         const { setItem, createData } = this.context;
         const { purchase, amount } = e.target
-        console.log(this.props)
-        
-        let itemInfo = [this.props.category, this.props.index, [purchase.value, parseInt(amount.value), this.props.item.item_id]];
 
+        if(amount.value <= 0){
+            return this.setState({
+                error: "You must pick a number larger than 0"
+            })
+        }
+
+    
+        let item_id = this.props.item[2];
+        let itemInfo = [this.props.category, this.props.index, [purchase.value, parseInt(amount.value), item_id]];
+        
+        const itemObj = {
+            item_id: item_id,
+            amount: parseInt(amount.value),
+            user_id: this.context.user_id,
+            category_id: this.context.categories[this.props.category.split('_').join(' ')].category_id
+        }
+        ItemsApiService.editItem(itemObj, this.context.user_id)
         setItem(itemInfo);
 
 
@@ -91,23 +121,53 @@ export default class Item extends Component{
 
                         <div className="edit-labels">
                             <label>Amount: </label>
-                            <input type="int" name="amount" defaultValue={item[1]}/>
+                            <input type="number" name="amount" defaultValue={item[1]}/>
+                        </div>
+                        <div>
+                            {this.state.error}
                         </div>
 
-                        <div className="edit-labels">
-                            <button 
-                                className="submit-cancel-buttons" 
-                                type="button" 
-                                onClick={()=>this.handleCancel()}>
-                                    Cancel
-                                </button>
+                        {
+                            this.state.handleDelete ? 
+                            <div className="edit-labels">
+                                <p>Confirm Delete?</p>
 
-                            <button 
-                                className="submit-cancel-buttons" 
-                                type="submit" >
-                                    Save Changes
-                                </button>
-                        </div>
+                                <button 
+                                    className="submit-cancel-buttons"
+                                    onClick={(e)=>this.handleDelete(e)}>
+                                        No
+                                        </button>
+                                <button 
+                                    className="submit-cancel-buttons"
+                                    onClick={()=>this.submitDelete()}>
+                                        Yes
+                                        </button>
+                            </div> 
+                                :
+                            <div className="edit-labels">
+                                <button 
+                                    className="submit-cancel-buttons" 
+                                    type="button" 
+                                    onClick={()=>this.handleCancel()}>
+                                        Cancel
+                                    </button>
+
+                                
+                                <button
+                                    className="submit-cancel-buttons" 
+                                    type="button"
+                                    onClick={(e)=>this.handleDelete(e)}>
+                                        Delete Item
+                                    </button>
+                                
+
+                                <button 
+                                    className="submit-cancel-buttons" 
+                                    type="submit" >
+                                        Save Changes
+                                    </button>
+                            </div>
+                        }
                     </form>
                 </li>
             )

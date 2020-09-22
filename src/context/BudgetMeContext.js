@@ -41,7 +41,12 @@ export class BudgetMeProvider extends Component{
                     'rgba(255, 206, 86, 0.2)',
                     'rgba(75, 192, 192, 0.2)',
                     'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(224, 187, 228, 0.2)',
+                    'rgba(130, 179, 255, 0.2)',
+                    'rgba(181, 234, 215, 0.2)',
+                    'rgba(242, 182, 174, 0.2)',
+                    'rgba(200, 51, 27, 0.2)'
                 ],
                 borderColor: [
                     'rgba(255, 99, 132, 1)',
@@ -49,7 +54,12 @@ export class BudgetMeProvider extends Component{
                     'rgba(255, 206, 86, 1)',
                     'rgba(75, 192, 192, 1)',
                     'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(224, 187, 228, 1)',
+                    'rgba(130, 179, 255, 1)',
+                    'rgba(181, 234, 215, 1)',
+                    'rgba(242, 182, 174, 1)',
+                    'rgba(200, 51, 27, 1)'
                 ],
                 borderWidth: 1,
                 hoverBackgroundColor: 'rgba(255,99,132,0.4)',

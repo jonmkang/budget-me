@@ -62,7 +62,7 @@ export default class AddCategory extends Component {
             <div ref={this.setWrapperRef} className="add-category-container">
                 <form onSubmit={(e)=>this.addCategory(e)}>
                     <div className="add-category-box">
-                        <label>Category Title:</label>
+                        <label>New Category:</label>
                         <input type="text" name="category_title" autoComplete="off"/>
                     </div>
                     

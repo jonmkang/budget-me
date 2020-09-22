@@ -82,13 +82,13 @@ export default class EditCategories extends Component{
     }
 
     render(){
-        const labels = this.context.chartData.labels.map(item => <option key={item} value={item}>{item}</option>);
+        const labels = this.context.chartData.labels.map(item => <option className="edit-labels" key={item} value={item}>{item}</option>);
         return(
             <div ref={this.setWrapperRef} className="edit-container">
                 <form onSubmit={(e)=>this.handleSubmit(e)} className="edit-form">
                     <div>
                         <div className="category-names">
-                            <label htmlFor="category_to_change">Category To Edit: </label>
+                            <label htmlFor="category_to_change">Category: </label>
                             <select 
                                 id="category_to_change"
                                 name="category_to_change"
@@ -130,7 +130,7 @@ export default class EditCategories extends Component{
                     {!this.state.deleteCategory  
                         &&
                     <div className="category-names edit-title-container">
-                        <label htmlFor="title" className="edit-title">Edit Name: </label>
+                        <label htmlFor="title" className="edit-title-label">Edit Name: </label>
                         <input 
                             className="edit-title"
                             autoComplete="off"

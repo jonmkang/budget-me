@@ -13,4 +13,9 @@
         padding-left: 10%;
         padding-right: 10%;
     }
+
+    .description, .chart-home{
+        max-width: 60vw;
+        margin: 1rem auto;
+    }
 }

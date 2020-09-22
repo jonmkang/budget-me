@@ -77,7 +77,7 @@ export default class Category extends Component {
 
         return(
             <div>
-                <h5>Total spent: {total}</h5>
+                <h5>Total spent: ${total}</h5>
                 <ul className="list-total">
                     {categories}
                 </ul>

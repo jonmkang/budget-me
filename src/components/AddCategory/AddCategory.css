@@ -17,6 +17,7 @@
 
 .add-category-box label{
     font-weight: bold;
+    font-size: 10pt;
 }
 
 .add-category-box label, .add-category-box input{
@@ -27,18 +28,20 @@
     text-align: center;
     padding: 5pt;
     border-radius: 25pt 25pt;
+    border: 2pt solid rgb(135, 135, 250);
 }
 
 .add-category-box input:hover{
-    border: 2pt solid rgb(135, 135, 250);
+    border: 2pt solid rgb(79, 79, 150);
     box-shadow: 4px 4px 2px 1px rgba(0, 0, 255, .2);
 }
 
 .add-category-box input:focus{
-    font-size: 14pt;
+    font-size: 12pt;
     border: 2pt solid rgb(135, 135, 250);
     box-shadow: 4px 4px 2px 1px rgba(0, 0, 255, .2);
 }
+
 
 .add-category-buttons{
     display: flex;

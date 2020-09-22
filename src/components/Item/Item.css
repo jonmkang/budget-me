@@ -8,11 +8,13 @@ li{
 
 .item{
     list-style-type: none;
+    text-align: center;
     width: 35%;
-    border: 2pt rgb(127, 127, 255) solid;
+    border:2pt rgb(127, 127, 255) solid;
     border-radius: 10px 10px;
     margin: .5rem;
     padding: .5rem;
+    font-size: 10pt;
 }
 
 .item-edit-box{
@@ -52,7 +54,8 @@ input{
 }
 
 .item:hover{
-    border: 3pt rgb(127, 127, 255) solid;
+    font-weight: bold;
+    border: 2pt rgb(60, 60, 172) solid;
     box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
 }
 
