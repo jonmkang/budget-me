@@ -19,3 +19,10 @@
         margin: 1rem auto;
     }
 }
+
+@media screen and (min-width: 900px){
+    .description, .chart-home{
+        max-width: 50vw;
+        margin: 1rem auto;
+    }
+}

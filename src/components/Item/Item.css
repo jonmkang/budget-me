@@ -41,11 +41,12 @@ li{
     text-align: center;
     font-size: 14pt;
     border-radius: 10pt 10pt;
+    border: 2pt solid rgb(135, 135, 250);
 }
 
 .edit-labels input:hover, .edit-labels input:focus{
     font-size: 14pt;
-    border: 2pt solid rgb(135, 135, 250);
+    border: 2pt solid rgb(84, 84, 153);
     box-shadow: 4px 4px 2px 1px rgba(0, 0, 255, .2);
 }
 

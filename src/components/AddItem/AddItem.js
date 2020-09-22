@@ -48,38 +48,44 @@ export default class AddItem extends Component {
         const { purchase, amount, category } = e.target
         const data = this.context.chartData.datasets[0].data;
 
+        //create item object to send to backend
         const newItem = {
             item_name: purchase.value,
             amount: parseInt(amount.value),
             category_id: this.context.categories[category.value].category_id,
             user_id: this.context.user_id
         }
+
+        //If a name isn't given, sends error
         if(!purchase.value){
             return this.setState({
                 error: "Please give a name to the expenditure"
             })
         }
 
+        //if a valid amount isn't given, sends error
         if(!amount.value || amount.value <= 0){
             return this.setState({
                 error: "Please give a positive number for the amount"
             })
         }
-        console.log(newItem)
+
+        //If all criterion passes, tries to add item to the backend with a fetch request
         ItemsApiService.addItem(newItem, this.context.user_id, (category, purchase, amount) => this.context.addItem(category, purchase, amount), (values)=> this.context.setBudgetValues(values))
+        
+        //resets all errors
         this.setState({
             error: null
         })
 
         const index = this.context.chartData.labels.indexOf(category.value);
 
+        //creates a legend item to set the category to the one the item was added to
         const legendItem = {
             text: category.value,
             amount: data[index],
             index: index
         }
-
-        console.log(index, data,  category.value)
 
         this.context.setCurrentCategory(e, legendItem)
         this.props.cancelItem()

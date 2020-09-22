@@ -53,3 +53,12 @@
         width: 35%;
     }
 }
+
+@media screen and (min-width: 900px){
+    .add-item{
+        font-size: 14pt;
+        padding: .5rem;
+        margin: 1rem;
+        width: 20%;
+    }
+}

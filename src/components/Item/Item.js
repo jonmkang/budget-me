@@ -66,7 +66,15 @@ export default class Item extends Component{
         this.setState({
             handleDelete
         })
-        
+    }
+
+    submitDelete = e => {
+        const item_id = this.props.item[2];
+        const { chartData, budget_values } = this.context;
+
+        ItemsApiService.deleteItem(item_id, this.context.user_id, (values)=> this.context.setBudgetValues(values))
+
+        this.handleCancel();
     }
 
     updateItem = e => {
@@ -90,6 +98,7 @@ export default class Item extends Component{
             user_id: this.context.user_id,
             category_id: this.context.categories[this.props.category.split('_').join(' ')].category_id
         }
+        
         ItemsApiService.editItem(itemObj, this.context.user_id)
         setItem(itemInfo);
 

@@ -23,7 +23,6 @@ const ItemsApiService = {
           'Content-type': 'application/json', 
         }
       })
-        .then(res => res.json())
     },
     addItem(item, user_id, addItem,  setBudgetValues){
       return fetch(`${config.API_BASE_URL}/items/${user_id}`, {
@@ -37,6 +36,14 @@ const ItemsApiService = {
         .then(res => res.json())
         .then(res => {
           addItem(item.category_id, item.item_name, item.amount)
+          this.getItems(user_id, setBudgetValues)
+        })
+    },
+    deleteItem(item_id, user_id, setBudgetValues){
+      return fetch(`${config.API_BASE_URL}/items/${user_id}/${item_id}`, {
+        method: 'DELETE',
+      })
+        .then(res => {
           this.getItems(user_id, setBudgetValues)
         })
     }
