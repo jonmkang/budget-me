@@ -70,7 +70,6 @@ export default class Item extends Component{
 
     submitDelete = e => {
         const item_id = this.props.item[2];
-        const { chartData, budget_values } = this.context;
 
         ItemsApiService.deleteItem(item_id, this.context.user_id, (values)=> this.context.setBudgetValues(values))
 
