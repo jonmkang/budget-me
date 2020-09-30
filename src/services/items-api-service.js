@@ -5,7 +5,11 @@ import TokenService from '../services/token-service';
 const ItemsApiService = {
     getItems(user_id,  setBudgetValues){
         fetch(`${config.API_BASE_URL}/items/${user_id}`, {
-            method: "GET"
+            method: "GET",
+            headers: {
+              "Accept":"application/json",
+              'Content-type': 'application/json', 
+          }
           })
             .then(
               res => res.json())
