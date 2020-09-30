@@ -12,13 +12,13 @@ export default class Chart extends Component{
     static contextType = BudgetMeContext;
 
     constructor(props){
-        super(props)
+        super(props);
         this.state={
             addItem: false,
             addCategory: false,
             isHovering: false,
             editCategory: false
-        }
+        };
     }
 
     //creates initial data values for the demo chart
@@ -51,24 +51,24 @@ export default class Chart extends Component{
     cancelEditCategory = () => {
         this.setState({
             editCategory: false
-        })
+        });
     }
 
     cancelItem = () => {
         this.setState({
             addItem: false
-        })
+        });
     }
 
     cancelCategory = () => {
         this.setState({
             addCategory: false
-        })
+        });
     }
 
     render(){
         const { chartData, currentCategory } = this.context;
-        
+  
         return(
             <div className="chart-container">
                 <Total />

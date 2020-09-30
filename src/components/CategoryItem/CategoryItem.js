@@ -11,7 +11,7 @@ export default class CategoryItem extends Component{
             text: this.props.item,
             amount: data[this.props.idx],
             index: this.props.idx
-        }
+        };
         
         return (
             <>

@@ -1,0 +1,130 @@
+import React, { Component } from 'react';
+import BudgetMeContext from '../../context/BudgetMeContext';
+import BudgetsApiService from '../../services/budgets-api-service';
+
+import './BudgetBar.css';
+
+export default class BudgetBar extends Component {
+    static contextType = BudgetMeContext;
+    
+    constructor(props){        
+        super(props)
+        this.state={
+            error: '',
+            addBudget: false,
+        }
+        this.setWrapperRef = this.setWrapperRef.bind(this);
+        this.handleClickOutside = this.handleClickOutside.bind(this);
+    }
+
+    componentDidMount() {
+        document.addEventListener('click', this.handleClickOutside, true);
+    }
+    
+    componentWillUnmount() {
+        document.removeEventListener('click', this.handleClickOutside, true);
+    }
+
+    setWrapperRef(node) {
+        this.wrapperRef = node;
+    }
+
+    handleNewBudgetItem = () => {
+        const addBudget = !this.state.addBudget
+        this.setState({
+            addBudget
+        })
+    }
+
+    cancelNewBudgetItem = () => {
+        this.setState({
+            addBudget: false
+        })
+    }
+
+    handleClickOutside = e => {
+        /* Check that we've clicked outside of the container and that it is open */
+
+        if (this.wrapperRef && !this.wrapperRef.contains(e.target)) {
+            
+            this.cancelNewBudgetItem();
+            this.props.cancelEditBudget();
+        };
+    }
+
+    handleSubmit = e => {
+        e.preventDefault();
+        this.setState({
+            error: ''
+        });
+
+        const { date, budget_title, budget_amount } = e.target;
+        const date_create = date.value;
+        
+        if(date_create.length !== 10){
+            return this.setState({
+                error: "Please use a YYYY-MM-DD format"
+            });
+        };
+
+        if(isNaN(Date.parse(date_create)))
+        {
+            return this.setState({
+                error: "Please enter a valid date"
+            });
+        }
+
+
+        if(!budget_title.value){
+            return this.setState({
+                error: 'Please enter a Title'
+            })
+        }
+
+        if(!budget_amount.value || budget_amount.value < 0){
+            return this.setState({
+                error: 'Please enter a non-zero amount'
+            })
+        }
+
+        const newBudget = {
+            budget_amount: budget_amount.value,
+            title: budget_title.value,
+            date_create
+        }
+
+        console.log(newBudget)
+
+        BudgetsApiService.addBudget(this.context.user_id, (monthlyBudgets) => this.context.setMonthlyBudgets(monthlyBudgets), newBudget)
+    }
+
+    render() {
+        return(
+            <div className="budgets-container" ref={this.setWrapperRef}>
+                {this.state.addBudget 
+                    ? 
+                    <form className="budgets-form" onSubmit={(e)=>this.handleSubmit(e)}>
+                        <div className="add-item-form-inputs">
+                            <label htmlFor="date">Date</label>
+                            <input id="date" name="date" defaultValue={new Date().toISOString().slice(0, 10)}/>
+                        </div>
+                        <div className="add-item-form-inputs">
+                            <label name="budget_title">Deposit Title:</label>
+                            <input id="budget_title" name="budget_title"/>
+                        </div>
+                        <div className="add-item-form-inputs">
+                            <label name="budget_amount">Amount </label>
+                            <input type="number" id="budget_amount" name="budget_amount"/>
+                        </div>
+                        <p className="budget-error">{this.state.error}</p>
+                        <div className="add-item-form-inputs">
+                            <button className="budget-button" type="button" onClick={()=>this.cancelNewBudgetItem()}>Cancel</button>
+                            <button className="budget-button" type="submit">Submit</button>
+                        </div>
+                    </form> 
+                    : 
+                    <button className="budget-button" onClick={()=>this.handleNewBudgetItem()}>Add to budget</button>}
+            </div>
+        )
+    }
+}

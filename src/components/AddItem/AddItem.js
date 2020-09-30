@@ -32,20 +32,20 @@ export default class AddItem extends Component {
         /* Check that we've clicked outside of the container and that it is open */
 
         if (this.wrapperRef && !this.wrapperRef.contains(e.target)) {
-            this.props.cancelItem()
-        }
-    };
+            this.props.cancelItem();
+        };
+    }
 
     handleCategory = e => {
         const newCategory = e.target.value;
         this.setState({
             newCategory
-        })
+        });
     }
 
     handleSubmit = e =>{
-        e.preventDefault()
-        const { purchase, amount, category } = e.target
+        e.preventDefault();
+        const { purchase, amount, category } = e.target;
         const data = this.context.chartData.datasets[0].data;
 
         //create item object to send to backend
@@ -54,29 +54,29 @@ export default class AddItem extends Component {
             amount: parseInt(amount.value),
             category_id: this.context.categories[category.value].category_id,
             user_id: this.context.user_id
-        }
+        };
 
         //If a name isn't given, sends error
         if(!purchase.value){
             return this.setState({
                 error: "Please give a name to the expenditure"
-            })
-        }
+            });
+        };
 
         //if a valid amount isn't given, sends error
         if(!amount.value || amount.value <= 0){
             return this.setState({
                 error: "Please give a positive number for the amount"
-            })
-        }
+            });
+        };
 
         //If all criterion passes, tries to add item to the backend with a fetch request
-        ItemsApiService.addItem(newItem, this.context.user_id, (category, purchase, amount) => this.context.addItem(category, purchase, amount), (values)=> this.context.setBudgetValues(values))
+        ItemsApiService.addItem(newItem, this.context.user_id, (category, purchase, amount) => this.context.addItem(category, purchase, amount), (values)=> this.context.setBudgetValues(values));
         
         //resets all errors
         this.setState({
             error: null
-        })
+        });
 
         const index = this.context.chartData.labels.indexOf(category.value);
 
@@ -85,14 +85,15 @@ export default class AddItem extends Component {
             text: category.value,
             amount: data[index],
             index: index
-        }
+        };
 
-        this.context.setCurrentCategory(e, legendItem)
-        this.props.cancelItem()
+        this.context.setCurrentCategory(e, legendItem);
+        this.props.cancelItem();
     }
 
     render(){
-        const categories = this.context.chartData.labels.map((item, idx) => <option value={item} key={idx}>{item}</option>)
+        const categories = this.context.chartData.labels.map((item, idx) => <option value={item} key={idx}>{item}</option>);
+        
         return(
             <div ref={this.setWrapperRef}>
                 <form 

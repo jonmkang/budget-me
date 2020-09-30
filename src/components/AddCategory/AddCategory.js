@@ -31,30 +31,30 @@ export default class AddCategory extends Component {
         /* Check that we've clicked outside of the container and that it is open */
 
         if (this.wrapperRef && !this.wrapperRef.contains(e.target)) {
-            this.props.cancelCategory()
-        }
+            this.props.cancelCategory();
+        };
     };
 
     addCategory = e => {
-        e.preventDefault()
-        const { category_title } = e.target
+        e.preventDefault();
+        const { category_title } = e.target;
 
         if(!category_title.value){
             return this.setState({
                 error: "Enter a title for the new category"
-            })
-        }
+            });
+        };
 
         const category_to_add = {
-            category_title: category_title.value
-        }
-
-        CategoryApiService.addCategory(this.context.user_id, category_to_add, (labels) => this.context.setLabels(labels), (categories) => this.context.setCategories(categories))
+            category_title: category_title.value,
+        };
+        console.log(this.context.user_id)
+        CategoryApiService.addCategory(this.context.user_id, category_to_add, (labels) => this.context.setLabels(labels), (categories) => this.context.setCategories(categories));
         
         this.setState({
             error: ''
-        })
-        this.props.cancelCategory()
+        });
+        this.props.cancelCategory();
     }
 
     render(){
@@ -62,7 +62,7 @@ export default class AddCategory extends Component {
             <div ref={this.setWrapperRef} className="add-category-container">
                 <form onSubmit={(e)=>this.addCategory(e)}>
                     <div className="add-category-box">
-                        <label>New Category:</label>
+                        <label htmlFor="category_title">New Category:</label>
                         <input type="text" name="category_title" autoComplete="off"/>
                     </div>
                     

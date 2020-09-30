@@ -1,5 +1,6 @@
 .header{
     height: 6vh;
+    padding-bottom: 5px;
     border-bottom: 1pt grey solid;
     box-shadow: 0 0 4px #002152, 0 0 7px #0000FF;
 }
@@ -9,6 +10,7 @@ h2{
     margin: 0 auto;
     font-size: 24pt;
     color: rgb(0, 125, 209);
+    padding-bottom: 5px;
     text-shadow: 2px 2px 4px #6c94c2;
 }
 
@@ -25,20 +27,25 @@ h2{
     color: white;
     margin: .1rem;
     border-radius: 3pt 3pt;
-    font-size: 10pt;
+    border: .5pt rgb(0, 125, 209) solid;
+    font-size: 9pt;
     padding: .2rem;
     background-color: rgb(0, 125, 209);
 }
 
 .auth-button:hover{
-    border: .5pt blue solid;
+    border: .5pt black solid;
     background-color: white;
     color: black;
     margin: .1rem;
     border-radius: 3pt 3pt;
-    font-size: 10pt;
+    font-size: 9pt;
     padding: .2rem;
 }
+.auth-button:active{
+    color: black;
+}
+
 
 @media screen and (min-width: 540px){
     .header{
@@ -47,7 +54,7 @@ h2{
     }
 
     h2{
-        font-size: 28pt;
+        font-size: 40pt;
     }
 
     .auth{
@@ -58,12 +65,29 @@ h2{
     .auth-button{
         padding: .25rem;
         font-size: 14pt;
-        margin: .5rem;
+        margin: .75rem;
+        height: 3vh;
     }
 
-    .auth-button:hover{
-        margin: .5rem;
-        font-size: 14pt;
+    .auth-button:hover, .auth-button:active{
         padding: .25rem;
+        font-size: 14pt;
+        margin: .75rem;
+        height: 3vh;
+    }
+}
+
+@media screen and (min-width: 840px){
+    .auth-button{
+        padding: .3rem;
+        font-size: 16pt;
+        height: 3.5vh;
+    }
+
+    .auth-button:hover, .auth-button:active{
+        font-size: 16pt;
+        padding: .3rem;
+        font-size: 16pt;
+        height: 3.5vh;
     }
 }

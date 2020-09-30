@@ -7,12 +7,12 @@ export default class Item extends Component{
     static contextType = BudgetMeContext;
 
     constructor(props){
-        super(props)
+        super(props);
         this.state={
             active: false,
             handleDelete: false,
             error: ''
-        }
+        };
 
         this.setWrapperRef = this.setWrapperRef.bind(this);
         this.handleClickOutside = this.handleClickOutside.bind(this);
@@ -34,12 +34,12 @@ export default class Item extends Component{
         /* Check that we've clicked outside of the container and that it is open */
 
         if (this.wrapperRef && !this.wrapperRef.contains(e.target)) {
-            this.props.handleOutsideClick()
+            this.props.handleOutsideClick();
             this.props.handleEditingItem();
             this.setState({
                 handleDelete: false
-            })
-            this.handleCancel()
+            });
+            this.handleCancel();
         }
     };
 
@@ -49,29 +49,29 @@ export default class Item extends Component{
 
         this.setState({
             active: true
-        })
+        });
     }
 
     handleCancel = () => {
         this.setState({ 
             active: false
-        })
+        });
         this.props.handleEditingItem();
     }
 
     handleDelete = (e) => {
-        e.preventDefault()
-        e.stopPropagation()
+        e.preventDefault();
+        e.stopPropagation();
         const handleDelete = !this.state.handleDelete;
         this.setState({
             handleDelete
-        })
+        });
     }
 
     submitDelete = e => {
         const item_id = this.props.item[2];
 
-        ItemsApiService.deleteItem(item_id, this.context.user_id, (values)=> this.context.setBudgetValues(values))
+        ItemsApiService.deleteItem(item_id, this.context.user_id, (values)=> this.context.setBudgetValues(values));
 
         this.handleCancel();
     }
@@ -79,13 +79,13 @@ export default class Item extends Component{
     updateItem = e => {
         e.preventDefault();
         const { setItem, createData } = this.context;
-        const { purchase, amount } = e.target
+        const { purchase, amount } = e.target;
 
         if(amount.value <= 0){
             return this.setState({
                 error: "You must pick a number larger than 0"
-            })
-        }
+            });
+        };
 
         let item_id = this.props.item[2];
         let itemInfo = [this.props.category, this.props.index, [purchase.value, parseInt(amount.value), item_id]];
@@ -96,9 +96,9 @@ export default class Item extends Component{
             amount: parseInt(amount.value),
             user_id: this.context.user_id,
             category_id: this.context.categories[this.props.category.split('_').join(' ')].category_id
-        }
+        };
         
-        ItemsApiService.editItem(itemObj, this.context.user_id)
+        ItemsApiService.editItem(itemObj, this.context.user_id);
         setItem(itemInfo);
 
         //resets data values based off of the new created item
@@ -115,7 +115,7 @@ export default class Item extends Component{
             return(
                 <></>
             )
-        }
+        };
 
         if(this.state.active && this.props.editingItem){
             return(
@@ -179,7 +179,7 @@ export default class Item extends Component{
                     </form>
                 </li>
             )
-        }
+        };
         
         if(!this.props.editingItem){
             return(
@@ -188,7 +188,7 @@ export default class Item extends Component{
                     {title}: ${item[1]} 
                 </li>
             )
-        }
+        };
         
         return(
             <></>

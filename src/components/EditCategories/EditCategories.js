@@ -6,13 +6,13 @@ import './EditCategories.css';
 export default class EditCategories extends Component{
     static contextType = BudgetMeContext;
     constructor(props){
-        super(props)
+        super(props);
         this.state={
             category: "",
             newName: "",
             deleteCategory: false,
             error: ''
-        }
+        };
         this.setWrapperRef = this.setWrapperRef.bind(this);
         this.handleClickOutside = this.handleClickOutside.bind(this);
     }
@@ -32,53 +32,59 @@ export default class EditCategories extends Component{
     handleClickOutside = e => {
         /* Check that we've clicked outside of the container and that it is open */
 
-        if (this.wrapperRef && !this.wrapperRef.contains(e.target)) {
-            this.props.cancelEditCategory()
-        }
+        if (this.wrapperRef && !this.wrapperRef.contains(e.target))
+            this.props.cancelEditCategory();
+
     };
 
     setCategory = e => {
         this.setState({
             category: e.target.value
-        })
+        });
     }
 
     setName = e => {
         this.setState({
             newName: e.target.value
-        })
+        });
     }
 
     handleDeleteCategory = () => {
-        const name = document.getElementById('category_to_change').value
-        CategoryApiService.deleteCategory(this.context.user_id, name, (labels) => this.context.setLabels(labels), (categories) => this.context.setCategories(categories)) 
-        this.props.cancelEditCategory()
+        const name = document.getElementById('category_to_change').value;
+        CategoryApiService.deleteCategory(this.context.user_id, name, (labels) => this.context.setLabels(labels), (categories) => this.context.setCategories(categories), (values) => this.context.setBudgetValues(values));
+
+        this.props.cancelEditCategory();
     }
 
     handleSubmit = e => {
-        e.preventDefault()
+        e.preventDefault();
         const { category_to_change, title } = e.target;
         if(!title.value.length){
             return this.setState({
                 error: "You must enter a name for the category"
-            })
-        }
+            });
+        };
+
         const newCategory = {
             category_title: title.value
-        }
-        CategoryApiService.updateCategoryTitle(this.context.user_id, category_to_change.value, newCategory, (labels) => this.context.setLabels(labels), (categories) => this.context.setCategories(categories))
-        this.props.cancelEditCategory()
+        };
+
+        console.log(this.context)
+        CategoryApiService.updateCategoryTitle(this.context.user_id, category_to_change.value, newCategory, (labels) => this.context.setLabels(labels), (categories) => this.context.setCategories(categories), (values)=> this.context.setBudgetValues(values));
+        
+
+        this.props.cancelEditCategory();
 
         this.setState({
             error: ''
-        })
+        });
     }
 
     setDeleteCategory = () => {
-        const deleteCategory = !this.state.deleteCategory
+        const deleteCategory = !this.state.deleteCategory;
         this.setState({
             deleteCategory
-        })
+        });
     }
 
     render(){
@@ -120,7 +126,7 @@ export default class EditCategories extends Component{
                                     No</button>
                             <button 
                                 className="submit-cancel-buttons" 
-                                type="submit"
+                                type="button"
                                 onClick={()=>this.handleDeleteCategory()}>
                                     Yes</button>    
                         </div>}

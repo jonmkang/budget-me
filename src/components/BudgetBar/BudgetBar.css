@@ -1,0 +1,59 @@
+@keyframes budgetmove {
+    from {height: 0;}
+    to {height: 40vh;}
+}
+
+@keyframes formmove{
+    from {height: 0;}
+    to {height: 25vh}
+}
+
+
+.budgets-container{
+    position: absolute;
+    z-index: 1;
+    height: 40vh;
+    width: 100vw;
+    animation: budgetmove 1s;
+    background: white;
+    border-bottom: 2pt grey solid;
+    box-shadow: 0 0 8px #002152, 0 3px 10px #0000FF;
+    overflow: hidden;
+    padding: .2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.budgets-form{
+    position: absolute;
+    z-index: 1;
+    height: 25vh;
+    width: 100vw;
+    animation: formmove 1s;
+    background: white;
+    border-bottom: 2pt grey solid;
+    box-shadow: 0 0 8px #002152, 0 3px 10px #0000FF;
+    overflow: hidden;
+    padding: .2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.budget-button{
+    margin: 0 auto;
+    padding: .5rem;
+    border-radius: 25pt 25pt;
+    border: 2pt solid rgb(135, 135, 250);
+}
+
+.budget-button:hover{
+    background-color: rgb(135, 135, 250);
+    color: white;
+    box-shadow: 4px 4px 2px 1px rgba(0, 0, 255, .2);
+}
+
+.budget-error{
+    margin: 3pt;
+    padding: 0;
+    text-align: center;
+}

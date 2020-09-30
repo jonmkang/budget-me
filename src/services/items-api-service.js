@@ -1,4 +1,6 @@
 import config from '../config';
+import TokenService from '../services/token-service';
+
 
 const ItemsApiService = {
     getItems(user_id,  setBudgetValues){
@@ -9,8 +11,8 @@ const ItemsApiService = {
               res => res.json())
             .then(res => 
               { 
-                const values_arr = res.map(item => [item.item_name, item.amount, item.category_title, item.item_id])
-                setBudgetValues(values_arr)
+                const values_arr = res.map(item => [item.item_name, item.amount, item.category_title, item.item_id, item.date_create.split("T")[0]]);
+                setBudgetValues(values_arr);
               }
             )
     },
@@ -31,12 +33,13 @@ const ItemsApiService = {
         headers:{
           "Accept":"application/json",
           'Content-type': 'application/json', 
+          'authorization': `bearer ${TokenService.getAuthToken()}`
         }
       })
         .then(res => res.json())
         .then(res => {
-          addItem(item.category_id, item.item_name, item.amount)
-          this.getItems(user_id, setBudgetValues)
+          addItem(item.category_id, item.item_name, item.amount);
+          this.getItems(user_id, setBudgetValues);
         })
     },
     deleteItem(item_id, user_id, setBudgetValues){
@@ -44,7 +47,7 @@ const ItemsApiService = {
         method: 'DELETE',
       })
         .then(res => {
-          this.getItems(user_id, setBudgetValues)
+          this.getItems(user_id, setBudgetValues);
         })
     }
 }

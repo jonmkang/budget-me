@@ -1,0 +1,78 @@
+@keyframes mymove {
+    from {height: 0;}
+    to {height: 180px;}
+}
+
+.error{
+    margin: 0 auto;
+    text-align: center;
+}
+
+.register-form{
+    padding: .2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.register-container{
+    position: absolute;
+    z-index: 1;
+    height: 180px;
+    width: 100vw;
+    animation: mymove 1s;
+    background: white;
+    border-bottom: 2pt grey solid;
+    box-shadow: 0 0 8px #002152, 0 0 10px #0000FF;
+    overflow: hidden;
+}
+
+.register-form-inputs{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: .2rem;
+}
+
+#register_confirm, #register_password, #register_email{
+    border: 2pt solid rgb(135, 135, 250);
+    width: 40%;
+    border-radius: 10pt 10pt;
+    padding: .3rem;
+}
+
+.register-form-inputs label, .register-form-inputs input{
+    font-size: 9pt;
+    width: 40%;
+    border-radius: 10pt 10pt;
+    padding: .3rem;
+}
+
+.register-form-inputs input{
+    border: 2pt solid rgb(135, 135, 250);
+}
+
+.register-form-inputs input:hover, .register-form-inputs input:focus{
+    border: 2pt solid rgb(89, 89, 163);
+    box-shadow: 4px 4px 2px 1px rgba(0, 0, 255, .2);
+}
+
+.register-button{
+    margin: 0 auto;
+    padding: .5rem;
+    border-radius: 25pt 25pt;
+    border: 2pt solid rgb(135, 135, 250);
+}
+
+.register-button:hover{
+    background-color: rgb(135, 135, 250);
+    color: white;
+    box-shadow: 4px 4px 2px 1px rgba(0, 0, 255, .2);
+}
+
+@media screen and (min-width: 720px){
+    .register-form{
+        margin: 0 auto;
+        width: 40vw;
+    }
+}

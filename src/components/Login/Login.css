@@ -1,0 +1,71 @@
+@keyframes mymovesmall {
+    from {height: 0;}
+    to {height: 150px;}
+}
+
+.error{
+    font-size: 10pt;
+    text-align: center;
+}
+
+.login-form{
+    padding: .2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.login-container{
+    position: absolute;
+    z-index: 1;
+    height: 150px;
+    width: 100vw;
+    animation: mymovesmall 1s;
+    background: white;
+    border-bottom: 2pt grey solid;
+    box-shadow: 0 0 8px #002152, 0 3px 10px #0000FF;
+    overflow: hidden;
+}
+
+.login-form-inputs{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: .5rem;
+}
+
+.login-form-inputs label, .login-form-inputs input{
+    width: 40%;
+    border-radius: 10pt 10pt;
+    padding: .3rem;
+}
+
+.login-form-inputs input{
+    border: 2pt solid rgb(135, 135, 250);
+}
+
+.login-form-inputs input:hover, .login-form-inputs input:focus{
+    border: 2pt solid rgb(89, 89, 163);
+    box-shadow: 4px 4px 2px 1px rgba(0, 0, 255, .2);
+}
+
+.login-button{
+    margin: 0 auto;
+    padding: .5rem;
+    border-radius: 25pt 25pt;
+    border: 2pt solid rgb(135, 135, 250);
+}
+
+.login-button:hover{
+    background-color: rgb(135, 135, 250);
+    color: white;
+    box-shadow: 4px 4px 2px 1px rgba(0, 0, 255, .2);
+}
+
+@media screen and (min-width: 720px){
+    .login-form{
+        margin: 0 auto;
+        width: 40vw;
+        font-size: 16pt;
+    }
+}

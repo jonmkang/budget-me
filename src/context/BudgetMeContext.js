@@ -7,6 +7,7 @@ const BudgetMeContext = React.createContext({
     budget_values: {},
     currentCategory: {},
     categories: {},
+    monthlyBudget:[],
     userId: null,
     error: null,
     addCategory: () => {},
@@ -17,6 +18,7 @@ const BudgetMeContext = React.createContext({
     setBudgetValues: () => {},
     setCategories: () => {},
     setCurrentCategory: () => {},
+    setMonthlyBudgets: ()=>{},
     setData: () => {},
     setElement: () => {},
     setError: () => {},
@@ -31,7 +33,7 @@ export default BudgetMeContext
 export class BudgetMeProvider extends Component{
     state={
         chartData: {
-            labels: ['Bills', 'Groceries', 'Investments', 'Pet Supplies', 'Restaurants'],
+            labels: [],
             datasets: [
               {
                 label: 'My First dataset',
@@ -64,41 +66,18 @@ export class BudgetMeProvider extends Component{
                 borderWidth: 1,
                 hoverBackgroundColor: 'rgba(255,99,132,0.4)',
                 hoverBorderColor: 'rgba(255,99,132,1)',
-                data: [65, 59, 80, 81, 22]
+                data: []
               }
             ]
             },
         currentCategory: { name: 'Total', amount: 347,  index: null },
         budget_values: {
-            Restaurants: [
-                ["Le Gamin", 22],
-                ["Pizza Prince", 18],
-                ["cafe Alula", 25]
-            ],
-            Bills: [
-                ["Electricity", 20],
-                ["Internet", 30]
-            ],
-            Groceries: [
-                ["HMart", 40],
-                ["Whole Foods", 20]
-            ],
-            Pet_Supplies: [
-                ["Cat food", 25],
-                ["Cat litter", 35],
-                ["Cat treats", 21]
-            ],
-            Investments: [
-                ["Robinhood", 22]
-            ],
-            Leftover_Budget: [
-                ["Leftover budget", 40]
-            ]
         },
         categories: {},
+        monthlyBudget:[],
         error: null,
         user_id: 1
-    }
+    };
 
     //Adds new category to context
     addCategory = category => {
@@ -106,16 +85,16 @@ export class BudgetMeProvider extends Component{
         
         if(labels.includes(category)){
             return
-        }
+        };
         
-        labels.push(category)
+        labels.push(category);
 
         let statusCopy = Object.assign({}, this.state.chartData)
         statusCopy.datasets[0].labels = labels;
             
         this.setState({
             chartData: statusCopy
-        })
+        });
     }
 
     //adds item to correct category object
@@ -135,20 +114,21 @@ export class BudgetMeProvider extends Component{
         
         this.setState({
             budget_values
-        })
+        });
 
-        this.createData(labels, budget_values)
+        this.createData(labels, budget_values);
     }
 
     clearError = () => {
-        this.setState({ error: null })
+        this.setState({ error: null });
     }
     
     clearUserId = () => {
-        window.sessionStorage.setItem(config.USER_ID, null)
+        console.log('clearing user id')
+        window.sessionStorage.setItem(config.USER_ID, 1);
         this.setState({
             user_id: 1
-        })
+        });
     }
 
     //creates a data list for the pie graph using values from the API
@@ -156,7 +136,7 @@ export class BudgetMeProvider extends Component{
         const names = labels.map(item=> item.split(' ').join('_'));
         const total_values = names.map(item =>
             budget_values[item] ?
-                budget_values[item].map((a) => a[1]).reduce((a, b) => a+b) : 0)
+                budget_values[item].map((a) => a[1]).reduce((a, b) => a+b) : 0);
         this.setData(total_values);
     }
 
@@ -176,30 +156,30 @@ export class BudgetMeProvider extends Component{
 
             //If the key doesn't exist, create an array with arrToPush as arr[0]
             if(!newBudget[label]){
-                newBudget[label] = [arrToPush]
+                newBudget[label] = [arrToPush];
 
             //If it exists, push arrToPush onto the existing array in the key-value pair
             }else{
-                newBudget[label].push(arrToPush)
+                newBudget[label].push(arrToPush);
             }            
         })
 
         //Creates new budget in state to use for context
         this.setState({
             budget_values: newBudget
-        })
+        });
 
         //Uses new budget values to re-create pie chart data
-        this.createData(this.state.chartData.labels, newBudget)
+        this.createData(this.state.chartData.labels, newBudget);
     }
 
     //creates a categories object to keep the database category_ids' to use for adding items and editing categories
     setCategories = categories_arr => {
-        const categories_obj = {}
-        categories_arr.map(item => categories_obj[item.category_title] = item)
+        const categories_obj = {};
+        categories_arr.map(item => categories_obj[item.category_title] = item);
         this.setState({
             categories: categories_obj
-        })
+        });
     }
 
     //Handles changes on clicking legend
@@ -213,12 +193,12 @@ export class BudgetMeProvider extends Component{
     //Sets values from data given from API
     setData = newData => {
         if(Array.isArray(newData)){
-            let statusCopy = Object.assign({}, this.state.chartData)
+            let statusCopy = Object.assign({}, this.state.chartData);
             statusCopy.datasets[0].data = newData;
             
             this.setState({
                 chartData: statusCopy
-            })
+            });
         }
     }    
     
@@ -234,12 +214,12 @@ export class BudgetMeProvider extends Component{
 
         this.setState({
             currentCategory: { name: label, amount: data, index: elementIndex}
-        })
+        });
     }
 
     setError = error => {
-        console.error(error)
-        this.setState({ error })
+        console.error(error);
+        this.setState({ error });
     }
     
     //Replaces the item in context with the edited item
@@ -248,31 +228,42 @@ export class BudgetMeProvider extends Component{
         //Check if item is an array
         if(Array.isArray(itemInfo)){
             //Assigns the budget values to a temp. variable and replaces the array inside the correct index
-            let statusCopy = Object.assign({}, this.state.budget_values)
+            let statusCopy = Object.assign({}, this.state.budget_values);
             statusCopy[itemInfo[0]][itemInfo[1]] = itemInfo[2];
 
             this.setState({
                 budget_values: statusCopy
-            })
+            });
 
             //updates the new total
-            this.updateTotal()
+            this.updateTotal();
         }
     }
 
     setLabels = labels => {
         if(Array.isArray(labels)){
-            let statusCopy = Object.assign({}, this.state.chartData)
+            let statusCopy = Object.assign({}, this.state.chartData);
             statusCopy.labels = labels;
 
             this.setState({
                 chartData: statusCopy
+            });
+        }
+    }
+
+    setMonthlyBudgets = monthlyBudget => {
+        if(Array.isArray(monthlyBudget)){
+            this.setState({
+            monthlyBudget
             })
         }
     }
 
     setUserId = userId => {
-        window.sessionStorage.setItem(config.USER_ID, userId)
+        this.setState({
+            user_id: userId
+        })
+        window.sessionStorage.setItem(config.USER_ID, userId);
     }
 
 
@@ -280,7 +271,7 @@ export class BudgetMeProvider extends Component{
     setTotalClick = () => {
         this.setState({
             currentCategory: {name: 'Total', amount: 347,  index: null }
-        })
+        });
     }
     
     //updates current category amount
@@ -295,7 +286,7 @@ export class BudgetMeProvider extends Component{
                 ...this.state.currentCategory,
                 amount: data[this.state.currentCategory.index]
             }
-        })
+        });
     }
     render() {
         const value = {
@@ -303,6 +294,7 @@ export class BudgetMeProvider extends Component{
             budget_values: this.state.budget_values,
             currentCategory: this.state.currentCategory,
             categories: this.state.categories,
+            monthlyBudget: this.state.monthlyBudget,
             user_id: this.state.user_id,
             error: this.state.error,
             createData: this.createData,
@@ -314,13 +306,14 @@ export class BudgetMeProvider extends Component{
             setCategories: this.setCategories,
             setCurrentCategory: this.setCurrentCategory,
             setElement: this.setElement,
+            setMonthlyBudgets: this.setMonthlyBudgets,
             setTotalClick: this.setTotalClick,
             setData: this.setData,
             setItem: this.setItem,
             setLabels: this.setLabels,
             addItem: this.addItem,
             addCategory: this.addCategory
-        }
+        };
 
         return(
             <BudgetMeContext.Provider value={value}>

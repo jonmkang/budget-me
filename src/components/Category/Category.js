@@ -17,14 +17,14 @@ export default class Category extends Component {
     handleOutsideClick = () => {
         this.setState({
             editingItem: false
-        })
+        });
     }
     
     handleEditingItem = () => {
         const editingItem = !this.state.editingItem;
         this.setState({
             editingItem
-        })
+        });
     }
     
     render(){
@@ -46,7 +46,7 @@ export default class Category extends Component {
                     item={item}
                     editingItem={this.state.editingItem}
                     handleOutsideClick={() => this.handleOutsideClick()}
-                    handleEditingItem={() => this.handleEditingItem()}/>)
+                    handleEditingItem={() => this.handleEditingItem()}/>);
 
                 return(
                     <div >
@@ -55,27 +55,38 @@ export default class Category extends Component {
                             {items}
                         </ul>
                     </div>
-                )
-            }
+                );
+            };
             return(
                 <div>
                     <h5>{name}: $0</h5>
                     <p className="empty-list">Add an item for this category!</p>
                 </div>
+            );
+        };
+
+        //If no categories exist, renders add new values
+        // if(this.props.hasOwnProperty('data'))
+        if(this.context.chartData.datasets[0].data.length === 0){
+            return (
+                <div>
+                    Add a new category and some expenditures!
+                </div>
             )
         }
 
         //If category index doesn't exist, creates values based off of category totals
-        const total = this.props.data.datasets[0].data.reduce((a, b) => a+b);
+        const total = (this.props.hasOwnProperty('data') ? this.props.data.datasets[0].data.reduce((a, b) => a+b) : null);
 
         //builds category elements off of labels and context data
-        const categories = this.props.data.labels.map((item, idx)=> 
+        const categories = (this.props.data.hasOwnProperty('labels') ? this.props.data.labels.map((item, idx)=> 
             <CategoryItem 
                 editing={false}
                 className="item" 
                 key={idx+item}
                 idx={idx} 
-                item={item}/>)
+                item={item}/>) 
+                : null);
 
         return(
             <div>
