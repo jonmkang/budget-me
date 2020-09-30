@@ -52,7 +52,7 @@ export default class Total extends Component{
                     className="total" 
                     onClick={() => this.context.setTotalClick()}>
                         Budget Left: ${budget - chartData.datasets[0].data.reduce((a, b) => a+b)}</h4>
-                {this.state.isHovering && <div className="total-budget">View total budget</div>}
+                {this.state.isHovering && <div className="total-budget">View total expenditures</div>}
             </div>
         )
     }
