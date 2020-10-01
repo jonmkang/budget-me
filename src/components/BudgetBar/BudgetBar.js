@@ -231,11 +231,11 @@ export default class BudgetBar extends Component {
                             </div>
                         </form> 
                         : 
-                        this.state.editBudgetItem ? <div className="add-item-form-inputs">
+                        !this.state.editBudgetItem ? <div className="add-item-form-inputs">
                             <button className="budget-button" onClick={()=>this.props.cancelEditBudget()}>Cancel</button>
                         <button className="budget-button" onClick={()=>this.handleNewBudgetItem()}>Add to budget</button>
                         </div> : <></>}
-                    {!this.state.editBudgetItem ? <div className="budget-items-container"></div> : <></>}
+                    {this.state.editBudgetItem ? <div className="budget-items-container"></div> : <></>}
                 </div>
         )
     }

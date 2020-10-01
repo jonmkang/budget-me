@@ -124,7 +124,6 @@ export class BudgetMeProvider extends Component{
     }
     
     clearUserId = () => {
-        console.log('clearing user id')
         window.sessionStorage.setItem(config.USER_ID, 1);
         this.setState({
             user_id: 1
