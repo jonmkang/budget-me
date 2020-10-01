@@ -6,6 +6,10 @@ const CategoryApiService = {
     getCategories(user_id, setLabels, setCategories){
         fetch(`${config.API_BASE_URL}/categories/${user_id}`, {
             method: "GET",
+            headers: {
+              "Accept":"application/json",
+              'Content-type': 'application/json', 
+          }
           })
             .then(
               res => res.json())

@@ -7,13 +7,12 @@ export default class Item extends Component{
     static contextType = BudgetMeContext;
 
     constructor(props){
-        super(props);
+        super(props)
         this.state={
             active: false,
             handleDelete: false,
             error: ''
-        };
-
+        }
         this.setWrapperRef = this.setWrapperRef.bind(this);
         this.handleClickOutside = this.handleClickOutside.bind(this);
     }
@@ -123,12 +122,12 @@ export default class Item extends Component{
                     <form onSubmit={(e)=>this.updateItem(e)} className="item-edit-box">
 
                         <div className="edit-labels">
-                            <label>Purchase: </label>
+                            <label htmlFor="purchase">Purchase: </label>
                             <input type="text" name="purchase" defaultValue={title}/>
                         </div>
 
                         <div className="edit-labels">
-                            <label>Amount: </label>
+                            <label htmlFor="amount">Amount: </label>
                             <input type="number" name="amount" defaultValue={item[1]}/>
                         </div>
                         <div>

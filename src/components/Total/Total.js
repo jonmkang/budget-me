@@ -26,14 +26,6 @@ export default class Total extends Component{
     render(){
         const { chartData } = this.context;
 
-        if(this.context.chartData.datasets[0].data.length === 0){
-            return (
-                <div className="empty-budgets">
-                    Add to your budget first!
-                </div>
-            )
-        }
-
         //Create initial 0 value for variable
         let budget = 0;
 
@@ -41,7 +33,17 @@ export default class Total extends Component{
         if(this.context.monthlyBudget.length)
             this.context.monthlyBudget.forEach((item) => {
                 budget+= item[1]
-            })
+        })
+
+
+        //If there are no datasets available
+        if(this.context.chartData.datasets[0].data.length === 0){
+            return (
+                <div className="empty-budgets">
+                    Add to your budget first!
+                </div>
+            )
+        }
 
         return(
             <div 

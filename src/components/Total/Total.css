@@ -33,3 +33,15 @@
 .total-container{
     height: 10vh;
 }
+
+.empty-budgets {
+    text-align: center;
+    font-weight: bold;
+    font-size: 12pt;
+}
+
+@media screen and (min-width: 840px){
+    .empty-budgets {
+        font-size: 16pt;
+    }
+}

@@ -35,7 +35,6 @@ export default class Category extends Component {
         //If the category index exists, creates items based off category
         if(index || index === 0){
             const findName = name.split(' ').join('_');
-            
             //checks to see if values exist for the category
             if(this.context.budget_values[findName]){
                 const items = this.context.budget_values[findName].map((item, idx) => 
@@ -47,7 +46,6 @@ export default class Category extends Component {
                     editingItem={this.state.editingItem}
                     handleOutsideClick={() => this.handleOutsideClick()}
                     handleEditingItem={() => this.handleEditingItem()}/>);
-
                 return(
                     <div >
                         <h5>{name}: ${data[index]}</h5>
@@ -69,7 +67,7 @@ export default class Category extends Component {
         // if(this.props.hasOwnProperty('data'))
         if(this.context.chartData.datasets[0].data.length === 0){
             return (
-                <div>
+                <div className="empty-category">
                     Add a new category and some expenditures!
                 </div>
             )

@@ -1,0 +1,21 @@
+.budget-item{
+    font-size: 10pt;
+    margin: 6pt;
+    padding: 5pt;
+    max-width: 150px;
+    border-radius: 15pt 15pt;
+    background-color: #008CBA;
+    border: 2pt #008CBA solid;
+    color: white;
+    text-align: center;
+}
+
+.budget-item:hover{
+    background-color: #005c7a;
+    border: 2pt black solid;
+}
+
+.budget-edit-form{
+    padding: 15pt;
+    font-size: 12pt;
+}
