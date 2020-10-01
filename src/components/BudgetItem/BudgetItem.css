@@ -19,3 +19,10 @@
     padding: 15pt;
     font-size: 12pt;
 }
+
+@media screen and (min-width: 840px){
+    .budget-item{
+        font-size: 14pt;
+        max-width: 200px;
+    }
+}
