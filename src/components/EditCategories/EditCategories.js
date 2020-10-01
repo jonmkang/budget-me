@@ -69,7 +69,6 @@ export default class EditCategories extends Component{
             category_title: title.value
         };
 
-        console.log(this.context)
         CategoryApiService.updateCategoryTitle(this.context.user_id, category_to_change.value, newCategory, (labels) => this.context.setLabels(labels), (categories) => this.context.setCategories(categories), (values)=> this.context.setBudgetValues(values));
         
 
