@@ -86,6 +86,12 @@ export default class Item extends Component{
             });
         };
 
+        if(!purchase.value || purchase.value.length === 0){
+            return this.setState({
+                error: "You must enter a title"
+            })
+        }
+
         let item_id = this.props.item[2];
         let itemInfo = [this.props.category, this.props.index, [purchase.value, parseInt(amount.value), item_id]];
         
@@ -130,7 +136,7 @@ export default class Item extends Component{
                             <label htmlFor="amount">Amount: </label>
                             <input type="number" name="amount" defaultValue={item[1]}/>
                         </div>
-                        <div>
+                        <div className="error">
                             {this.state.error}
                         </div>
 

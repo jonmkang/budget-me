@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 import AuthApiService from '../../services/auth-api-service';
+import CategoryApiService from '../../services/categories-api-service';
+import ItemsApiService from '../../services/items-api-service';
+import TokenService from '../../services/token-service';
+import BudgetMeContext from '../../context/BudgetMeContext';
+import BudgetsApiService from '../../services/budgets-api-service';
 import './Register.css';
 
 export default class Register extends Component{
+    static contextType = BudgetMeContext;
+
     constructor(props){
         super()
         this.state={
@@ -88,7 +95,16 @@ export default class Register extends Component{
 
         AuthApiService.postUser(new_user)
             .then(user => {
-                AuthApiService.postLogin(new_user);
+                AuthApiService.postLogin(new_user)
+                    .then(res => {
+                        TokenService.saveAuthToken(JSON.stringify(res.authToken));
+                        this.context.setUserId(res.user_id);
+                        CategoryApiService.getCategories(res.user_id,  (labels) => this.context.setLabels(labels),  (categories) => this.context.setCategories(categories));
+                        ItemsApiService.getItems(res.user_id,  (values)=> this.context.setBudgetValues(values), this.context.chartData.labels);
+                        BudgetsApiService.getBudgets(res.user_id, (monthlyBudgets) => this.context.setMonthlyBudgets(monthlyBudgets))
+                        this.props.cancelRegister();
+                    })
+                console.log('logging in', new_user)
             })
             .catch(res=> {
                 this.setState({

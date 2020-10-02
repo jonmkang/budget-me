@@ -61,6 +61,7 @@ export default class Login extends Component {
                 CategoryApiService.getCategories(res.user_id,  (labels) => this.context.setLabels(labels),  (categories) => this.context.setCategories(categories));
                 ItemsApiService.getItems(res.user_id,  (values)=> this.context.setBudgetValues(values), this.context.chartData.labels);
                 BudgetsApiService.getBudgets(res.user_id, (monthlyBudgets) => this.context.setMonthlyBudgets(monthlyBudgets))
+                this.props.cancelLogin();
             })
             .catch(res=> {
                 this.setState({
@@ -68,7 +69,7 @@ export default class Login extends Component {
                 })
             })
 
-        this.props.cancelLogin();
+        
     }
 
     render(){

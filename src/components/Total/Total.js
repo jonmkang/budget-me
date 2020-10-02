@@ -23,6 +23,12 @@ export default class Total extends Component{
         };
     }
 
+    componentDidMount(){
+        this.setState({
+            isHovering: false
+        })
+    }
+
     render(){
         const { chartData } = this.context;
 

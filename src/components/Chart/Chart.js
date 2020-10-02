@@ -17,14 +17,27 @@ export default class Chart extends Component{
             addItem: false,
             addCategory: false,
             isHovering: false,
-            editCategory: false
+            editCategory: false,
+            width: 0,
+            height: 0
         };
+        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
     }
 
     //creates initial data values for the demo chart
     componentDidMount(){
         const { chartData, budget_values } = this.context;
         this.context.createData(chartData.labels, budget_values);
+        this.updateWindowDimensions();
+        window.addEventListener('resize', this.updateWindowDimensions);
+    }
+      
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.updateWindowDimensions);
+    }
+    
+    updateWindowDimensions() {
+        this.setState({ width: window.innerWidth, height: window.innerHeight });
     }
 
     addItem = () => {
@@ -79,7 +92,7 @@ export default class Chart extends Component{
                                 maintainAspectRatio: false,
                                 responsive: true,
                                 legend: {
-                                    position: 'right',
+                                    position: this.state.width < 640 ? 'bottom' : 'right',
                                     onClick: (e, legendItem) => this.context.setCurrentCategory(e, legendItem)
                                 } }}
                         getElementAtEvent={(elementItem) => this.context.setElement(elementItem)}

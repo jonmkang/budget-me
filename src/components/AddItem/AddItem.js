@@ -57,7 +57,7 @@ export default class AddItem extends Component {
         };
 
         //If a name isn't given, sends error
-        if(!purchase.value){
+        if(!purchase.value || purchase.value.length === 0){
             return this.setState({
                 error: "Please give a name to the expenditure"
             });

@@ -61,4 +61,8 @@
         margin: 1rem;
         width: 20%;
     }
+
+    .graph-container{
+        width: 40vw;
+    }
 }

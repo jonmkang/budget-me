@@ -85,6 +85,7 @@ export default class Header extends Component{
                     </div>
                 :    
                 <div className="auth">
+                    <button className="auth-button" type="button" onClick={()=>this.handleEditBudgetsButton()}>Set Budgets</button>
                     <button className="auth-button" type="button" onClick={()=>this.handleLoginButton()}>Login</button>
                     <button className="auth-button" type="button" onClick={()=>this.handleRegisterButton()}>Register</button>
                 </div>

@@ -18,7 +18,7 @@
     background: white;
     border-bottom: 2pt grey solid;
     box-shadow: 0 0 8px #002152, 0 3px 10px #0000FF;
-    overflow: hidden;
+    overflow: auto;
     padding: .2rem;
     display: flex;
     flex-direction: column;

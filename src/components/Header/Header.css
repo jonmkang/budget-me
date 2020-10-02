@@ -58,26 +58,32 @@ h2{
     }
 
     .auth{
-        flex-direction: row;
+        flex-direction: column;
         height: 6vh;
     }
 
     .auth-button{
         padding: .25rem;
         font-size: 14pt;
-        margin: .75rem;
+        margin: .25rem;
         height: 3vh;
     }
 
     .auth-button:hover, .auth-button:active{
         padding: .25rem;
         font-size: 14pt;
-        margin: .75rem;
+        margin: .25rem;
         height: 3vh;
     }
 }
 
 @media screen and (min-width: 840px){
+    .auth{
+        margin: .75rem;
+        flex-direction: row;
+        height: 6vh;
+    }
+
     .auth-button{
         padding: .3rem;
         font-size: 16pt;

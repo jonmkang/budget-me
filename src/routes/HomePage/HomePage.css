@@ -8,7 +8,7 @@
 
 @media screen and (min-width: 540px){
     .description{
-        font-size: 18pt;
+        font-size: 14pt;
         margin: 2rem;
         padding-left: 10%;
         padding-right: 10%;
@@ -22,7 +22,7 @@
 
 @media screen and (min-width: 900px){
     .description, .chart-home{
-        max-width: 50vw;
+        max-width: 40vw;
         margin: 1rem auto;
     }
 }
