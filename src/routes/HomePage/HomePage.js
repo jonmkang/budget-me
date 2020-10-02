@@ -23,7 +23,7 @@ export default class HomePage extends Component{
                 {
                     TokenService.hasAuthToken() ? 
                 <section className='description'>
-                    Welcome to BudgetMe!
+                    Welcome to BudgetMe! Please use this application for your own use.  If you have any ideas for improvement please email me at jon.m.kang@gmail.com
                 </section>
                     :
                 <section className='description'>
