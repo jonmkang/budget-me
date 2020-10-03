@@ -41,7 +41,7 @@ export default class Total extends Component{
                 budget+= item[1]
         })
 
-        if(budget > 0){
+        if(budget > 0 && this.context.chartData.datasets[0] === 0){
             return (
                 <div className="total-container">
                     <h4 

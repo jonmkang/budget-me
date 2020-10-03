@@ -15,14 +15,22 @@
     }
 
     .description, .chart-home{
-        max-width: 60vw;
+        max-width: 80vw;
         margin: 1rem auto;
     }
 }
 
 @media screen and (min-width: 900px){
     .description, .chart-home{
-        max-width: 40vw;
+        max-width: 65vw;
+        margin: 1rem auto;
+    }
+}
+
+
+@media screen and (min-width: 1200px){
+    .description, .chart-home{
+        max-width: 45vw;
         margin: 1rem auto;
     }
 }
