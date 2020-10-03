@@ -10,8 +10,8 @@
     .description{
         font-size: 14pt;
         margin: 2rem;
-        padding-left: 10%;
-        padding-right: 10%;
+        padding-left: 20%;
+        padding-right: 20%;
     }
 
     .description, .chart-home{
@@ -23,7 +23,7 @@
 @media screen and (min-width: 900px){
     .description, .chart-home{
         max-width: 65vw;
-        margin: 1rem auto;
+        margin: 1.5rem auto;
     }
 }
 
